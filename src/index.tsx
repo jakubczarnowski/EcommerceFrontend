@@ -2,18 +2,25 @@ import React from 'react';
 import { createRoot } from 'react-dom/client';
 import { Provider } from 'react-redux';
 import { store } from './app/store';
-import App from './App';
+import App from './pages/App';
 import reportWebVitals from './reportWebVitals';
 import './index.css';
+import { BrowserRouter } from 'react-router-dom';
+import { ThemeProvider } from '@emotion/react';
+import theme from './theme';
 
 const container = document.getElementById('root')!;
 const root = createRoot(container);
 
 root.render(
   <React.StrictMode>
-    <Provider store={store}>
-      <App />
-    </Provider>
+    <BrowserRouter>
+      <ThemeProvider theme={theme}>
+        <Provider store={store}>
+          <App />
+        </Provider>
+      </ThemeProvider>
+    </BrowserRouter>
   </React.StrictMode>
 );
 
