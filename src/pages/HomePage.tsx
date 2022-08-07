@@ -1,7 +1,6 @@
 import axios from "axios";
 import React, { useEffect } from "react";
 import { useSelector } from "react-redux";
-import { axiosInstance } from "../app/axiosInstance";
 import { useAppDispatch } from "../app/hooks";
 import Product from "../components/Products/Product";
 import { fetchProducts, selectError, selectProducts, selectStatus } from "../reducers/productsSlice";

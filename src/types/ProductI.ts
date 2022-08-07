@@ -9,4 +9,5 @@ export default interface ProductI {
 	description: string;
 	price: number;
 	categoryId: number;
+	favorite: boolean;
 }

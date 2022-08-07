@@ -15,7 +15,7 @@ import MoreIcon from "@mui/icons-material/MoreVert";
 import { AccountBox, HowToReg, Login, Logout, ShoppingCart } from "@mui/icons-material";
 import CategoriesDropdown from "./CategoriesDropdown";
 import { Link, useNavigate } from "react-router-dom";
-import { logout, selectUserIsLogged } from "../../reducers/authSlice";
+import { logout, selectUser, selectUserIsLogged } from "../../reducers/authSlice";
 import { useAppDispatch, useAppSelector } from "../../app/hooks";
 
 const Search = styled("div")(({ theme }) => ({
@@ -66,6 +66,7 @@ export default function Navbar() {
 	const mobileMenuId = "primary-search-account-menu-mobile";
 	const [mobileMoreAnchorEl, setMobileMoreAnchorEl] = React.useState<null | HTMLElement>(null);
 	const loggedIn = useAppSelector(selectUserIsLogged);
+	const user = useAppSelector(selectUser);
 	const isMobileMenuOpen = Boolean(mobileMoreAnchorEl);
 	const dispatch = useAppDispatch();
 	const handleMobileMenuClose = () => {
@@ -92,20 +93,38 @@ export default function Navbar() {
 			open={isMobileMenuOpen}
 			onClose={handleMobileMenuClose}
 		>
-			<MenuItem>
-				<IconButton size="large" aria-label="account of current user" aria-controls="primary-search-account-menu" aria-haspopup="true" color="inherit">
-					<Login />
-				</IconButton>
-				<p>Profile</p>
-			</MenuItem>
-			<MenuItem>
-				<IconButton size="large" aria-label="show 17 new notifications" color="inherit">
-					<Badge badgeContent={17} color="error">
-						<ShoppingCart />
-					</Badge>
-				</IconButton>
-				<p>Notifications</p>
-			</MenuItem>
+			{loggedIn ? (
+				<div>
+					<MenuItem onClick={() => navigate("/profile")}>
+						<IconButton size="large" aria-label="account of current user" aria-controls="primary-search-account-menu" aria-haspopup="true" color="inherit">
+							<AccountBox />
+						</IconButton>
+						<p>Profile</p>
+					</MenuItem>
+					<MenuItem onClick={() => dispatch(logout())}>
+						<IconButton size="large" aria-label="account of current user" aria-controls="primary-search-account-menu" aria-haspopup="true" color="inherit">
+							<Logout />
+						</IconButton>
+						<p>Logout</p>
+					</MenuItem>
+				</div>
+			) : (
+				<div>
+					<MenuItem onClick={() => navigate("/login")}>
+						{/* // zmienic na check czy jest user */}
+						<IconButton size="large" aria-label="account of current user" aria-controls="primary-search-account-menu" aria-haspopup="true" color="inherit">
+							<Login />
+						</IconButton>
+						<p>Login</p>
+					</MenuItem>
+					<MenuItem onClick={() => navigate("/register")}>
+						<IconButton size="large" aria-label="account of current user" aria-controls="primary-search-account-menu" aria-haspopup="true" color="inherit">
+							<HowToReg />
+						</IconButton>
+						<p>Register</p>
+					</MenuItem>
+				</div>
+			)}
 		</Menu>
 	);
 	// Login Menu
@@ -138,7 +157,7 @@ export default function Navbar() {
 			onClose={handleLoginMenuClose}
 		>
 			{loggedIn ? (
-				<>
+				<div>
 					<MenuItem onClick={() => navigate("/profile")}>
 						<IconButton size="large" aria-label="account of current user" aria-controls="primary-search-account-menu" aria-haspopup="true" color="inherit">
 							<AccountBox />
@@ -151,9 +170,9 @@ export default function Navbar() {
 						</IconButton>
 						<p>Logout</p>
 					</MenuItem>
-				</>
+				</div>
 			) : (
-				<>
+				<div>
 					<MenuItem onClick={() => navigate("/login")}>
 						{/* // zmienic na check czy jest user */}
 						<IconButton size="large" aria-label="account of current user" aria-controls="primary-search-account-menu" aria-haspopup="true" color="inherit">
@@ -167,13 +186,13 @@ export default function Navbar() {
 						</IconButton>
 						<p>Register</p>
 					</MenuItem>
-				</>
+				</div>
 			)}
 		</Menu>
 	);
 	return (
 		<Box className="navbar" sx={{ flexGrow: 1 }}>
-			<AppBar position="sticky" sx={{ paddingX: "10%;", margin: 0 }}>
+			<AppBar position="sticky" sx={{ paddingX: "10%;", margin: 0, zIndex: "1201" }}>
 				<Toolbar>
 					<Typography onClick={() => navigate("/")} variant="h6" noWrap component="div" sx={{ display: { xs: "none", sm: "block" } }}>
 						Exclusive

@@ -26,7 +26,6 @@ export default function LoginPage() {
 	const navigate = useNavigate();
 	const loggedIn = useAppSelector(selectUserIsLogged);
 	if (loggedIn) {
-		navigate("/");
 	}
 	const [formData, setFormData] = React.useState<LoginParams>({
 		username: "",

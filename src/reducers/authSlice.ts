@@ -2,7 +2,7 @@ import { ContentPasteGoOutlined } from "@mui/icons-material";
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 import { rejects } from "assert";
 import { AxiosError } from "axios";
-import { axiosInstance } from "../app/axiosInstance";
+import axiosInstance from "../app/axiosInstance";
 import { RootState } from "../app/store";
 import LoginParams from "../types/LoginParams";
 import RegisterParamas from "../types/RegisterParams";
@@ -61,6 +61,7 @@ export const authSlice = createSlice({
 			.addCase(login.fulfilled, (state, action) => {
 				state.isLoggedIn = true;
 				state.user = action.payload;
+				localStorage.setItem("user", JSON.stringify(action.payload));
 			})
 			.addCase(login.rejected, (state, action) => {
 				console.log(action);
@@ -69,7 +70,9 @@ export const authSlice = createSlice({
 			})
 			.addCase(logout.fulfilled, (state, action) => {
 				state.isLoggedIn = false;
+				console.log("Xd");
 				state.user = null;
+				localStorage.removeItem("user");
 			});
 	},
 });

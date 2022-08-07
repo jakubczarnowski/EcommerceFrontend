@@ -1,7 +1,7 @@
 import { createAsyncThunk, createSlice, PayloadAction } from "@reduxjs/toolkit";
 import { RootState, AppThunk } from "../app/store";
 import ProductParamsI from "../types/ProductParamI";
-import { axiosInstance } from "../app/axiosInstance";
+import axiosInstance from "../app/axiosInstance";
 import { FAILED, FULLFILLED, IDLE, LOADING } from "../utils/states";
 import CategoryI from "../types/CategoryI";
 

@@ -2,7 +2,7 @@ import { createAsyncThunk, createSlice, PayloadAction } from "@reduxjs/toolkit";
 import { RootState, AppThunk } from "../app/store";
 import ProductI from "../types/ProductI";
 import ProductParamsI from "../types/ProductParamI";
-import { axiosInstance } from "../app/axiosInstance";
+import axiosInstance from "../app/axiosInstance";
 import { FAILED, FULLFILLED, IDLE, LOADING } from "../utils/states";
 
 export interface ProductState {

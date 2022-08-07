@@ -3,12 +3,14 @@ import productsReducer from "../reducers/productsSlice";
 import categoriesReducer from "../reducers/categorySlice";
 import authSlice from "../reducers/authSlice";
 import messageSlice from "../reducers/messageSlice";
+import favoriteSlice from "../reducers/favoriteSlice";
 export const store = configureStore({
 	reducer: {
 		products: productsReducer,
 		categories: categoriesReducer,
 		auth: authSlice,
 		message: messageSlice,
+		favorite: favoriteSlice,
 	},
 });
 

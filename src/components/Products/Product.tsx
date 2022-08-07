@@ -9,16 +9,23 @@ import { Add, AddBoxOutlined, Favorite, FavoriteBorder } from "@mui/icons-materi
 import { CardMedia, IconButton } from "@mui/material";
 import { useState } from "react";
 import ProductI from "../../types/ProductI";
-
+import { useAppDispatch } from "../../app/hooks";
+import { addFavorite, deleteFavorite } from "../../reducers/favoriteSlice";
 type ProductProps = {
 	product: ProductI;
 };
 
 const Product = ({ product }: ProductProps) => {
-	const [favorite, setFavorite] = useState(false);
+	const dispatch = useAppDispatch();
+	const [favorite, setFavorite] = useState(product.favorite);
 	const handleClickFavorite = (e: React.MouseEvent<HTMLButtonElement, MouseEvent>) => {
 		e.preventDefault();
-		// handle favorite
+		if (!favorite) {
+			dispatch(addFavorite(product.id));
+		} else {
+			console.log(product);
+			dispatch(deleteFavorite(product.id));
+		}
 		setFavorite(!favorite);
 	};
 	return (
@@ -29,7 +36,7 @@ const Product = ({ product }: ProductProps) => {
 						<Typography sx={{ fontSize: 10, color: "primary.main" }}>5% off</Typography>
 					</Box>
 					<IconButton sx={{ padding: "5px", paddingBottom: "0" }} aria-label="favorite" onClick={(e) => handleClickFavorite(e)}>
-						{favorite ? <Favorite /> : <FavoriteBorder />}
+						{favorite ? <Favorite color="secondary" /> : <FavoriteBorder />}
 					</IconButton>
 				</Box>
 				<CardMedia component="img" height="140" image={product.imagesUrl[0]} alt="product" />
