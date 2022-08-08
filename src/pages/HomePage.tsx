@@ -1,7 +1,7 @@
 import axios from "axios";
 import React, { useEffect } from "react";
 import { useSelector } from "react-redux";
-import { useAppDispatch } from "../app/hooks";
+import { useAppDispatch, useAppSelector } from "../app/hooks";
 import Product from "../components/Products/Product";
 import { fetchProducts, selectError, selectProducts, selectStatus } from "../reducers/productsSlice";
 import "../static/styles.css";
@@ -9,12 +9,13 @@ import ProductParamsI from "../types/ProductParamI";
 import { FAILED, FULLFILLED, IDLE, LOADING } from "../utils/states";
 function HomePage() {
 	const dispatch = useAppDispatch();
-	const products = useSelector(selectProducts);
-	const productStatus = useSelector(selectStatus);
-	const productError = useSelector(selectError);
+	const products = useAppSelector(selectProducts);
+	const productStatus = useAppSelector(selectStatus);
+	const productError = useAppSelector(selectError);
 
 	const fetchConfig: ProductParamsI = {
 		size: 10,
+		page: 2,
 	};
 
 	useEffect(() => {

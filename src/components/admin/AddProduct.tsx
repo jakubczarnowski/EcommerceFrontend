@@ -11,40 +11,46 @@ import ParseCategories from "../../utils/ParseCategories";
 type Props = {};
 
 const AddProduct = (props: Props) => {
-	const [product, setProduct] = useState<ProductCreateI>({
+	const initialProductState: ProductCreateI = {
 		name: "",
 		imagesUrl: [],
 		price: 0,
 		description: "",
 		categoryId: 1,
-	});
+	};
+	const dispatch = useAppDispatch();
+	const [product, setProduct] = useState<ProductCreateI>(initialProductState);
 	const [categoryId, setCategoryId] = useState(1);
-	const [imagesUrl, setImagesUrl] = useState<string[]>([]);
 	const [imagePreview, setImagePreview] = useState<string | null>(null);
 	const [imageData, setImageData] = useState<FormData | null>(null);
-
-	const dispatch = useAppDispatch();
-	const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
-		event.preventDefault();
-		try {
-			console.log(product);
-			//const { failed } = await dispatch(createProduct(product)).unwrap();
-		} catch (e) {
-			console.log(e);
-		}
-	};
-	const handleChanged = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
-		setProduct((prev) => ({ ...prev, [e.target.name]: e.target.value }));
-	};
 	const categories = useAppSelector(selectCategories);
 	let parsedCategories: CategoryI[] = [];
 	if (categories !== null) {
 		parsedCategories = ParseCategories(categories);
 	}
+
+	const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
+		event.preventDefault();
+		try {
+			console.log(product);
+			const { failed } = await dispatch(createProduct(product)).unwrap();
+			if (!failed) {
+				//setProduct(initialProductState);
+			}
+		} catch (e) {
+			console.log(e);
+		}
+	};
+
+	const handleChanged = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
+		setProduct((prev) => ({ ...prev, [e.target.name]: e.target.value }));
+	};
+
 	const handleSelectChange = (e: SelectChangeEvent<number>) => {
 		setProduct((prev) => ({ ...prev, [e.target.name]: e.target.value }));
 		setCategoryId(Number(e.target.value));
 	};
+
 	const onFileChange = (e: ChangeEvent<HTMLInputElement>) => {
 		e.preventDefault();
 		if (e.target.files === null) {
@@ -56,23 +62,22 @@ const AddProduct = (props: Props) => {
 		setImagePreview(URL.createObjectURL(file));
 		setImageData(data);
 	};
+
 	const uploadImageOnClick = async () => {
 		if (imageData === null) {
 			return;
 		}
 		const name = await dispatch(uploadImage(imageData)).unwrap();
-		setImagesUrl((prev) => [...prev, name]);
-		setProduct((prev) => ({ ...prev, imagesUrl: imagesUrl }));
+		setProduct((prev) => ({ ...prev, imagesUrl: [...(prev.imagesUrl ?? []), name] }));
 	};
-	console.log(product);
 	return (
 		<form onSubmit={(e) => handleSubmit(e)}>
 			<br />
-			<TextField onChange={(e) => handleChanged(e)} required color="info" style={{ width: "200px", margin: "5px" }} type="text" label="Product Name" name="name" variant="outlined" />
+			<TextField value={product.name} onChange={(e) => handleChanged(e)} required color="info" style={{ width: "200px", margin: "5px" }} type="text" label="Product Name" name="name" variant="outlined" />
 			<br />
-			<TextField onChange={(e) => handleChanged(e)} required multiline rows={4} color="info" style={{ width: "200px", margin: "5px" }} type="text" name="description" label="Product Description" variant="outlined" />
+			<TextField value={product.description} onChange={(e) => handleChanged(e)} required multiline rows={4} color="info" style={{ width: "200px", margin: "5px" }} type="text" name="description" label="Product Description" variant="outlined" />
 			<br />
-			<TextField onChange={(e) => handleChanged(e)} required color="info" style={{ width: "200px", margin: "5px" }} type="number" name="price" inputProps={{ step: "0.01" }} label="Price" variant="outlined" />
+			<TextField value={product.price} onChange={(e) => handleChanged(e)} required color="info" style={{ width: "200px", margin: "5px" }} type="number" name="price" inputProps={{ step: "0.01" }} label="Price" variant="outlined" />
 			<br />
 			<Select onChange={(e) => handleSelectChange(e)} value={categoryId} size="small" sx={{ height: 1 }} name="categoryId" autoFocus>
 				{parsedCategories.map((val) => {
@@ -88,13 +93,13 @@ const AddProduct = (props: Props) => {
 				Upload Image
 				<input onChange={(e) => onFileChange(e)} hidden accept="image/*" multiple type="file" />
 			</Button>
-			<CardMedia sx={{ width: "60%", margin: "auto" }} component="img" image={imagePreview != null ? imagePreview : "https://www.amerikickkansas.com/wp-content/uploads/2017/04/default-image.jpg"} />
+			<CardMedia sx={{ width: "60%", margin: "auto" }} component="img" image={imagePreview != null ? imagePreview : ""} />
 			<br />
 			<Button onClick={() => uploadImageOnClick()} variant="contained" color="primary">
 				Save Image
 			</Button>
 			<ImageList sx={{ width: 500, height: 450 }} cols={3} rowHeight={164}>
-				{imagesUrl.map((item) => (
+				{(product.imagesUrl ?? []).map((item) => (
 					<ImageListItem>
 						<img src={BaseImageUrl + item} alt={"pic"} loading="lazy" />
 					</ImageListItem>

@@ -22,8 +22,7 @@ function App() {
 	}
 	return (
 		<div className="App">
-			<MessageDropdown />
-			<Navbar />
+			<Navbar isAdmin={isAdmin} />
 			<Routes>
 				<Route path="/" element={<HomePage />}></Route>
 				<Route path="/product" element={<ProductPage />}></Route>

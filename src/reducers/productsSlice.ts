@@ -30,6 +30,7 @@ export const fetchProducts = createAsyncThunk("products/fetchProducts", async (p
 export const createProduct = createAsyncThunk("products/createProduct", async (product: ProductCreateI, thunkAPI) => {
 	try {
 		const response = await axiosInstance.post("/products", JSON.stringify(product));
+		thunkAPI.dispatch(setMessage({ message: "Product added", error: false }));
 		return response.data;
 	} catch (err: any) {
 		thunkAPI.dispatch(setMessage({ message: err.response.data.message, error: true }));
@@ -80,6 +81,9 @@ export const productSlice = createSlice({
 				state.status = FAILED;
 				console.log(action);
 				state.error = action.error.message;
+			})
+			.addCase(createProduct.fulfilled, (state, action) => {
+				state.products.push(action.payload);
 			});
 	},
 });

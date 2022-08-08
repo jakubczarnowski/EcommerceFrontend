@@ -12,11 +12,16 @@ import Menu from "@mui/material/Menu";
 import SearchIcon from "@mui/icons-material/Search";
 import AccountCircle from "@mui/icons-material/AccountCircle";
 import MoreIcon from "@mui/icons-material/MoreVert";
-import { AccountBox, HowToReg, Login, Logout, ShoppingCart } from "@mui/icons-material";
+import { AccountBox, AdminPanelSettings, HowToReg, Login, Logout, ShoppingCart } from "@mui/icons-material";
 import CategoriesDropdown from "./CategoriesDropdown";
 import { Link, useNavigate } from "react-router-dom";
 import { logout, selectUser, selectUserIsLogged } from "../../reducers/authSlice";
 import { useAppDispatch, useAppSelector } from "../../app/hooks";
+import MessageDropdown from "../MessageDropdown";
+
+type Props = {
+	isAdmin: boolean;
+};
 
 const Search = styled("div")(({ theme }) => ({
 	position: "relative",
@@ -60,7 +65,7 @@ const StyledInputBase = styled(InputBase)(({ theme }) => ({
 	},
 }));
 
-export default function Navbar() {
+export default function Navbar({ isAdmin }: Props) {
 	const navigate = useNavigate();
 	//mobile menu
 	const mobileMenuId = "primary-search-account-menu-mobile";
@@ -101,6 +106,16 @@ export default function Navbar() {
 						</IconButton>
 						<p>Profile</p>
 					</MenuItem>
+					{isAdmin ? (
+						<MenuItem onClick={() => navigate("/admin")}>
+							<IconButton size="large" aria-label="account of current user" aria-controls="primary-search-account-menu" aria-haspopup="true" color="inherit">
+								<AdminPanelSettings />
+							</IconButton>
+							<p>Admin Panel</p>
+						</MenuItem>
+					) : (
+						""
+					)}
 					<MenuItem onClick={() => dispatch(logout())}>
 						<IconButton size="large" aria-label="account of current user" aria-controls="primary-search-account-menu" aria-haspopup="true" color="inherit">
 							<Logout />
@@ -164,6 +179,16 @@ export default function Navbar() {
 						</IconButton>
 						<p>Profile</p>
 					</MenuItem>
+					{isAdmin ? (
+						<MenuItem onClick={() => navigate("/admin")}>
+							<IconButton size="large" aria-label="account of current user" aria-controls="primary-search-account-menu" aria-haspopup="true" color="inherit">
+								<AdminPanelSettings />
+							</IconButton>
+							<p>Admin Panel</p>
+						</MenuItem>
+					) : (
+						""
+					)}
 					<MenuItem onClick={() => dispatch(logout())}>
 						<IconButton size="large" aria-label="account of current user" aria-controls="primary-search-account-menu" aria-haspopup="true" color="inherit">
 							<Logout />
@@ -192,6 +217,7 @@ export default function Navbar() {
 	);
 	return (
 		<Box className="navbar" sx={{ flexGrow: 1 }}>
+			<MessageDropdown />
 			<AppBar position="sticky" sx={{ paddingX: "10%;", margin: 0, zIndex: "1201" }}>
 				<Toolbar>
 					<Typography onClick={() => navigate("/")} variant="h6" noWrap component="div" sx={{ display: { xs: "none", sm: "block" } }}>

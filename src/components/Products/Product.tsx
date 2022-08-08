@@ -11,6 +11,7 @@ import { useState } from "react";
 import ProductI from "../../types/ProductI";
 import { useAppDispatch } from "../../app/hooks";
 import { addFavorite, deleteFavorite } from "../../reducers/favoriteSlice";
+import { BaseImageUrl } from "../../utils/BaseImageUrl";
 type ProductProps = {
 	product: ProductI;
 };
@@ -28,6 +29,7 @@ const Product = ({ product }: ProductProps) => {
 		}
 		setFavorite(!favorite);
 	};
+	console.log(product);
 	return (
 		<Card sx={{ minWidth: 275, backgroundColor: "primary.main", margin: "5px" }}>
 			<CardContent>
@@ -39,7 +41,7 @@ const Product = ({ product }: ProductProps) => {
 						{favorite ? <Favorite color="secondary" /> : <FavoriteBorder />}
 					</IconButton>
 				</Box>
-				<CardMedia component="img" height="140" image={product.imagesUrl[0]} alt="product" />
+				<CardMedia component="img" height="140" image={BaseImageUrl + product.imagesUrl[0]} alt="product" />
 				<Box sx={{ display: "flex", justifyContent: "left", alignItems: "flex-start", flexDirection: "column" }}>
 					<Typography sx={{}} mt={2} color="text.primary">
 						{product.name}
