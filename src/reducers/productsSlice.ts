@@ -4,6 +4,10 @@ import ProductI from "../types/ProductI";
 import ProductParamsI from "../types/ProductParamI";
 import axiosInstance from "../app/axiosInstance";
 import { FAILED, FULLFILLED, IDLE, LOADING } from "../utils/states";
+import { setMessage } from "./messageSlice";
+import ProductCreateI from "../types/ProductCreateI";
+import axios from "axios";
+import { BASE_URL } from "../utils/BaseUrl";
 
 export interface ProductState {
 	products: ProductI[];
@@ -21,6 +25,42 @@ export const fetchProducts = createAsyncThunk("products/fetchProducts", async (p
 		params: parameters,
 	});
 	return response.data;
+});
+
+export const createProduct = createAsyncThunk("products/createProduct", async (product: ProductCreateI, thunkAPI) => {
+	try {
+		const response = await axiosInstance.post("/products", JSON.stringify(product));
+		return response.data;
+	} catch (err: any) {
+		thunkAPI.dispatch(setMessage({ message: err.response.data.message, error: true }));
+		return thunkAPI.rejectWithValue({ failed: true });
+	}
+});
+
+export const editProduct = createAsyncThunk("products/editProduct", async (product: ProductCreateI, thunkAPI) => {
+	try {
+		const response = await axiosInstance.put("/products/" + product.id, JSON.stringify(product));
+		return response.data;
+	} catch (err: any) {
+		thunkAPI.dispatch(setMessage({ message: err.response.data.message, error: true }));
+		return thunkAPI.rejectWithValue({ failed: true });
+	}
+});
+
+export const uploadImage = createAsyncThunk("products/uploadPicture", async (image: FormData, thunkAPI) => {
+	try {
+		const response = await axios.post(BASE_URL + `/static/upload`, image, {
+			headers: {
+				"Content-Type": "multipart/form-data",
+			},
+			onUploadProgress: (progressEvent) => {
+				console.log("Uploading : " + ((progressEvent.loaded / progressEvent.total) * 100).toString() + "%");
+			},
+		});
+		return response.data;
+	} catch (err: any) {
+		thunkAPI.rejectWithValue(err.message);
+	}
 });
 
 export const productSlice = createSlice({

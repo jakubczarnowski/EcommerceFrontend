@@ -16,12 +16,10 @@ import AdminPage from "./AdminPage";
 function App() {
 	const user = useAppSelector(selectUser);
 	let isAdmin = false;
-	console.log(user);
 
 	if (user !== null) {
 		isAdmin = user?.roles.includes("ROLE_ADMIN");
 	}
-	console.log(isAdmin);
 	return (
 		<div className="App">
 			<MessageDropdown />

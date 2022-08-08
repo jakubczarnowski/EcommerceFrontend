@@ -6,12 +6,12 @@ import { FAILED, FULLFILLED, IDLE, LOADING } from "../utils/states";
 import CategoryI from "../types/CategoryI";
 
 export interface CategoryState {
-	categories: CategoryI[];
+	categories: CategoryI | null;
 	status: "idle" | "loading" | "fullfilled" | "failed";
 	error: string | undefined;
 }
 const initialState: CategoryState = {
-	categories: [],
+	categories: null,
 	status: "idle",
 	error: "",
 };

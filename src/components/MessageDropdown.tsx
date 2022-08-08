@@ -30,7 +30,7 @@ const MessageDropdown = (props: Props) => {
 							<Close fontSize="inherit" />
 						</IconButton>
 					}
-					sx={{ mb: 2 }}
+					sx={{ mb: 2, zIndex: "1201" }}
 				>
 					{message}
 				</Alert>

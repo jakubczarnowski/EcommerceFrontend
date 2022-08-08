@@ -1,8 +1,9 @@
-export default interface CategoryI{
-    id:string,
-    createdAt:Date,
-    modifiedAt:Date,
-    description:string,
-    imageUrl:string,
-    categoryChildren:CategoryI[],
+export default interface CategoryI {
+	id: string;
+	categoryName: string;
+	createdAt: Date;
+	modifiedAt: Date;
+	description: string;
+	imageUrl: string;
+	categoryChildren: CategoryI[];
 }
