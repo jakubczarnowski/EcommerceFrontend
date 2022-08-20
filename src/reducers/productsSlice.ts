@@ -91,4 +91,5 @@ export const productSlice = createSlice({
 export const selectProducts = (state: RootState) => state.products.products;
 export const selectStatus = (state: RootState) => state.products.status;
 export const selectError = (state: RootState) => state.products.error;
+export const selectProductBySlug = (state: RootState, slug: string) => state.products.products.find((product) => product.slug === slug);
 export default productSlice.reducer;

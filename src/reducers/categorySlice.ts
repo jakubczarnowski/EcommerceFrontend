@@ -4,6 +4,8 @@ import ProductParamsI from "../types/ProductParamI";
 import axiosInstance from "../app/axiosInstance";
 import { FAILED, FULLFILLED, IDLE, LOADING } from "../utils/states";
 import CategoryI from "../types/CategoryI";
+import CategoryCreateI from "../types/CategoryCreateI";
+import { setMessage } from "./messageSlice";
 
 export interface CategoryState {
 	categories: CategoryI | null;
@@ -19,6 +21,31 @@ const initialState: CategoryState = {
 export const fetchCategories = createAsyncThunk("categories/fetchCategories", async () => {
 	const response = await axiosInstance.get("/category/1", {});
 	return response.data;
+});
+
+export const deleteCategory = createAsyncThunk("categories/deleteCategory", async (id: number, thunkAPI) => {
+	const response = await axiosInstance.delete("/category/" + id, {});
+	return response.data;
+});
+export const createCategory = createAsyncThunk("products/createCategory", async (category: CategoryCreateI, thunkAPI) => {
+	try {
+		const response = await axiosInstance.post("/category", JSON.stringify(category));
+		thunkAPI.dispatch(setMessage({ message: "Category added", error: false }));
+		return response.data;
+	} catch (err: any) {
+		thunkAPI.dispatch(setMessage({ message: err.response.data.message, error: true }));
+		return thunkAPI.rejectWithValue({ failed: true });
+	}
+});
+
+export const editProduct = createAsyncThunk("products/editCategory", async (category: CategoryCreateI, thunkAPI) => {
+	try {
+		const response = await axiosInstance.put("/category/" + category.id, JSON.stringify(category));
+		return response.data;
+	} catch (err: any) {
+		thunkAPI.dispatch(setMessage({ message: err.response.data.message, error: true }));
+		return thunkAPI.rejectWithValue({ failed: true });
+	}
 });
 
 export const categorySlice = createSlice({

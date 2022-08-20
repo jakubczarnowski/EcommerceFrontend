@@ -4,6 +4,7 @@ import categoriesReducer from "../reducers/categorySlice";
 import authSlice from "../reducers/authSlice";
 import messageSlice from "../reducers/messageSlice";
 import favoriteSlice from "../reducers/favoriteSlice";
+import cartSlice from "../reducers/cartSlice";
 export const store = configureStore({
 	reducer: {
 		products: productsReducer,
@@ -11,6 +12,7 @@ export const store = configureStore({
 		auth: authSlice,
 		message: messageSlice,
 		favorite: favoriteSlice,
+		cart: cartSlice,
 	},
 });
 

@@ -18,6 +18,8 @@ import { Link, useNavigate } from "react-router-dom";
 import { logout, selectUser, selectUserIsLogged } from "../../reducers/authSlice";
 import { useAppDispatch, useAppSelector } from "../../app/hooks";
 import MessageDropdown from "../MessageDropdown";
+import { useState } from "react";
+import CartDrawer from "../cart/CartDrawer";
 
 type Props = {
 	isAdmin: boolean;
@@ -67,6 +69,11 @@ const StyledInputBase = styled(InputBase)(({ theme }) => ({
 
 export default function Navbar({ isAdmin }: Props) {
 	const navigate = useNavigate();
+	// cart
+	const [cartOpen, setCartOpen] = useState(false);
+	const onCartClose = () => {
+		setCartOpen(false);
+	};
 	//mobile menu
 	const mobileMenuId = "primary-search-account-menu-mobile";
 	const [mobileMoreAnchorEl, setMobileMoreAnchorEl] = React.useState<null | HTMLElement>(null);
@@ -105,6 +112,14 @@ export default function Navbar({ isAdmin }: Props) {
 							<AccountBox />
 						</IconButton>
 						<p>Profile</p>
+					</MenuItem>
+					<MenuItem onClick={() => setCartOpen(!cartOpen)}>
+						<IconButton size="large" aria-label="Open cart" color="inherit">
+							<Badge badgeContent={17} color="error">
+								<ShoppingCart />
+							</Badge>
+						</IconButton>
+						<p>Cart</p>
 					</MenuItem>
 					{isAdmin ? (
 						<MenuItem onClick={() => navigate("/admin")}>
@@ -179,6 +194,7 @@ export default function Navbar({ isAdmin }: Props) {
 						</IconButton>
 						<p>Profile</p>
 					</MenuItem>
+
 					{isAdmin ? (
 						<MenuItem onClick={() => navigate("/admin")}>
 							<IconButton size="large" aria-label="account of current user" aria-controls="primary-search-account-menu" aria-haspopup="true" color="inherit">
@@ -216,39 +232,42 @@ export default function Navbar({ isAdmin }: Props) {
 		</Menu>
 	);
 	return (
-		<Box className="navbar" sx={{ flexGrow: 1 }}>
-			<MessageDropdown />
-			<AppBar position="sticky" sx={{ paddingX: "10%;", margin: 0, zIndex: "1201" }}>
-				<Toolbar>
-					<Typography onClick={() => navigate("/")} variant="h6" noWrap component="div" sx={{ display: { xs: "none", sm: "block" } }}>
-						Exclusive
-					</Typography>
-					<Search>
-						<SearchIconWrapper>
-							<SearchIcon />
-						</SearchIconWrapper>
-						<StyledInputBase placeholder="Search…" inputProps={{ "aria-label": "search" }} />
-					</Search>
-					<Box sx={{ flexGrow: 1 }} />
-					<Box sx={{ display: { xs: "none", md: "flex" } }}>
-						<IconButton onClick={handleLoginMenuOpen} size="large" aria-label="account of current user" aria-haspopup="true" color="inherit">
-							<AccountCircle />
-						</IconButton>
-						<IconButton size="large" aria-label="Open cart" color="inherit">
-							<Badge badgeContent={17} color="error">
-								<ShoppingCart />
-							</Badge>
-						</IconButton>
-					</Box>
-					<Box sx={{ display: { xs: "flex", md: "none" } }}>
-						<IconButton size="large" aria-label="show more" aria-controls={mobileMenuId} aria-haspopup="true" onClick={handleMobileMenuOpen} color="inherit">
-							<MoreIcon />
-						</IconButton>
-					</Box>
-				</Toolbar>
-			</AppBar>
-			{renderMobileMenu}
-			{renderLoginMenu}
-		</Box>
+		<>
+			<Box className="navbar" sx={{ flexGrow: 1 }}>
+				<MessageDropdown />
+				<AppBar position="sticky" sx={{ paddingX: "10%;", margin: 0, zIndex: "1201" }}>
+					<Toolbar>
+						<Typography onClick={() => navigate("/")} variant="h6" noWrap component="div" sx={{ display: { xs: "none", sm: "block" } }}>
+							Exclusive
+						</Typography>
+						<Search>
+							<SearchIconWrapper>
+								<SearchIcon />
+							</SearchIconWrapper>
+							<StyledInputBase placeholder="Search…" inputProps={{ "aria-label": "search" }} />
+						</Search>
+						<Box sx={{ flexGrow: 1 }} />
+						<Box sx={{ display: { xs: "none", md: "flex" } }}>
+							<IconButton onClick={handleLoginMenuOpen} size="large" aria-label="account of current user" aria-haspopup="true" color="inherit">
+								<AccountCircle />
+							</IconButton>
+							<IconButton onClick={() => setCartOpen(!cartOpen)} size="large" aria-label="Open cart" color="inherit">
+								<Badge badgeContent={17} color="error">
+									<ShoppingCart />
+								</Badge>
+							</IconButton>
+						</Box>
+						<Box sx={{ display: { xs: "flex", md: "none" } }}>
+							<IconButton size="large" aria-label="show more" aria-controls={mobileMenuId} aria-haspopup="true" onClick={handleMobileMenuOpen} color="inherit">
+								<MoreIcon />
+							</IconButton>
+						</Box>
+					</Toolbar>
+				</AppBar>
+				{renderMobileMenu}
+				{renderLoginMenu}
+			</Box>
+			<CartDrawer open={cartOpen} onClose={onCartClose} />
+		</>
 	);
 }

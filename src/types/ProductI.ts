@@ -10,4 +10,5 @@ export default interface ProductI {
 	price: number;
 	categoryId: number;
 	favorite: boolean;
+	slug: string;
 }

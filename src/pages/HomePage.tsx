@@ -1,3 +1,4 @@
+import { Box, Grid } from "@mui/material";
 import axios from "axios";
 import React, { useEffect } from "react";
 import { useSelector } from "react-redux";
@@ -14,8 +15,8 @@ function HomePage() {
 	const productError = useAppSelector(selectError);
 
 	const fetchConfig: ProductParamsI = {
-		size: 10,
-		page: 2,
+		size: 30,
+		page: 1,
 	};
 
 	useEffect(() => {
@@ -29,12 +30,20 @@ function HomePage() {
 	if (productStatus === LOADING) {
 		content = <p>Loading</p>;
 	} else if (productStatus === FULLFILLED) {
-		content = products.map((product) => <Product key={product.id} product={product} />);
+		content = products.map((product) => (
+			<Grid item>
+				<Product key={product.id} product={product} />
+			</Grid>
+		));
 	} else if (productStatus === FAILED) {
 		content = <p>{productError}</p>;
 	}
 
-	return <div className={"productContainer"}>{content}</div>;
+	return (
+		<Grid container spacing={2}>
+			{content}
+		</Grid>
+	);
 }
 
 export default HomePage;

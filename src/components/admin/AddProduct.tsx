@@ -35,7 +35,7 @@ const AddProduct = (props: Props) => {
 			console.log(product);
 			const { failed } = await dispatch(createProduct(product)).unwrap();
 			if (!failed) {
-				//setProduct(initialProductState);
+				setProduct(initialProductState);
 			}
 		} catch (e) {
 			console.log(e);

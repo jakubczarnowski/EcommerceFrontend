@@ -4,6 +4,8 @@ export default interface CategoryI {
 	createdAt: Date;
 	modifiedAt: Date;
 	description: string;
+	parentCategoryId: number;
+	parentName?: string;
 	imageUrl: string;
 	categoryChildren: CategoryI[];
 }

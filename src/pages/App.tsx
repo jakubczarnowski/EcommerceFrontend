@@ -25,7 +25,7 @@ function App() {
 			<Navbar isAdmin={isAdmin} />
 			<Routes>
 				<Route path="/" element={<HomePage />}></Route>
-				<Route path="/product" element={<ProductPage />}></Route>
+				<Route path="/product/:slug" element={<ProductPage />}></Route>
 				<Route path="/profile" element={<ProfilePage />}></Route>
 				<Route path="/login" element={<LoginPage />}></Route>
 				<Route path="/register" element={<RegisterPage />}></Route>
