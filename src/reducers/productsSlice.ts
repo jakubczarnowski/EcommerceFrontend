@@ -38,6 +38,16 @@ export const createProduct = createAsyncThunk("products/createProduct", async (p
 	}
 });
 
+export const deleteProduct = createAsyncThunk("products/deleteProduct", async (id: number, thunkAPI) => {
+	try {
+		const response = await axiosInstance.delete("/products/" + id);
+		return id;
+	} catch (err: any) {
+		thunkAPI.dispatch(setMessage({ message: err.response.data.message, error: true }));
+		return thunkAPI.rejectWithValue({ failed: true });
+	}
+});
+
 export const editProduct = createAsyncThunk("products/editProduct", async (product: ProductCreateI, thunkAPI) => {
 	try {
 		const response = await axiosInstance.put("/products/" + product.id, JSON.stringify(product));
@@ -84,6 +94,10 @@ export const productSlice = createSlice({
 			})
 			.addCase(createProduct.fulfilled, (state, action) => {
 				state.products.push(action.payload);
+			})
+			.addCase(deleteProduct.fulfilled, (state, action) => {
+				const id: number = state.products.findIndex((val) => val.id === action.payload);
+				state.products.splice(id, 1);
 			});
 	},
 });

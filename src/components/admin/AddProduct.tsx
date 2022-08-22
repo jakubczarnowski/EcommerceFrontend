@@ -35,6 +35,8 @@ const AddProduct = (props: Props) => {
 			console.log(product);
 			const { failed } = await dispatch(createProduct(product)).unwrap();
 			if (!failed) {
+				setImagePreview(null);
+				setImageData(null);
 				setProduct(initialProductState);
 			}
 		} catch (e) {

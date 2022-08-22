@@ -21,7 +21,6 @@ export const CategorySelectEditField = (props: GridRenderCellParams) => {
 	}
 	const handleChange = async (event: SelectChangeEvent) => {
 		await apiRef.current.setEditCellValue({ id, field, value: event.target.value });
-		apiRef.current.stopCellEditMode({ id, field });
 	};
 	return (
 		<Select value={value} onChange={handleChange} size="small" sx={{ height: 1 }} native autoFocus>

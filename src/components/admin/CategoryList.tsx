@@ -3,7 +3,7 @@ import Box from "@mui/material/Box";
 import { DataGrid, GridActionsCellItem, GridColDef, GridColumns, GridRenderCellParams, GridRenderEditCellParams, GridRowId, GridToolbar, GridValueGetterParams, useGridApiContext } from "@mui/x-data-grid";
 import { useEffect, useState } from "react";
 import { useAppDispatch, useAppSelector } from "../../app/hooks";
-import { deleteCategory, selectCategories } from "../../reducers/categorySlice";
+import { deleteCategory, fetchCategories, selectCategories } from "../../reducers/categorySlice";
 import { editProduct, fetchProducts, selectError, selectProducts, selectStatus } from "../../reducers/productsSlice";
 import CategoryI from "../../types/CategoryI";
 import ProductCreateI from "../../types/ProductCreateI";
@@ -24,8 +24,11 @@ export default function CategoryList() {
 	if (categories !== null) {
 		parsedCategories = ParseCategories(categories);
 	}
-	const handleDeleteClick = (id: number) => {
-		dispatch(deleteCategory(id));
+	const handleDeleteClick = async (id: number) => {
+		const { failed } = await dispatch(deleteCategory(id)).unwrap();
+		if (!failed) {
+			dispatch(fetchCategories());
+		}
 	};
 	const columns: GridColDef[] = [
 		{ field: "id", headerName: "ID", width: 90 },
@@ -46,7 +49,7 @@ export default function CategoryList() {
 			headerName: "Parent Category Id",
 			type: "number",
 			width: 200,
-			editable: true,
+			editable: false, // TODO nie pokazywac podrzednych kategorii
 			renderCell: (params) => (
 				<p>
 					{

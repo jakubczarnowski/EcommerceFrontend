@@ -31,8 +31,8 @@ function HomePage() {
 		content = <p>Loading</p>;
 	} else if (productStatus === FULLFILLED) {
 		content = products.map((product) => (
-			<Grid item>
-				<Product key={product.id} product={product} />
+			<Grid xs={2} sm={4} md={3} key={product.id} item>
+				<Product product={product} />
 			</Grid>
 		));
 	} else if (productStatus === FAILED) {
@@ -40,7 +40,7 @@ function HomePage() {
 	}
 
 	return (
-		<Grid container spacing={2}>
+		<Grid container spacing={2} columns={{ xs: 4, sm: 8, md: 12 }}>
 			{content}
 		</Grid>
 	);

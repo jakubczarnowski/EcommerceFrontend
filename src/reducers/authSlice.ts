@@ -16,7 +16,12 @@ interface AuthState {
 	status: string;
 }
 const userObject = localStorage.getItem("user");
-const user: UserI | null = JSON.parse(userObject || "{}");
+let user: UserI | null;
+if (userObject != null) {
+	user = JSON.parse(userObject || "{}");
+} else {
+	user = null;
+}
 
 export const register = createAsyncThunk("auth/register", async (params: RegisterParamas, thunkAPI) => {
 	try {
@@ -70,7 +75,6 @@ export const authSlice = createSlice({
 			})
 			.addCase(logout.fulfilled, (state, action) => {
 				state.isLoggedIn = false;
-				console.log("Xd");
 				state.user = null;
 				localStorage.removeItem("user");
 			});

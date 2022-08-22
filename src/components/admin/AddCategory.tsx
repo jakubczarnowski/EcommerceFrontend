@@ -1,7 +1,7 @@
 import { Typography, Toolbar, TextField, Button, Box, Select, SelectChangeEvent, MenuItem, FormControl, ImageList, ImageListItem, CardMedia } from "@mui/material";
 import React, { ChangeEvent, useState } from "react";
 import { useAppDispatch, useAppSelector } from "../../app/hooks";
-import { createCategory, selectCategories } from "../../reducers/categorySlice";
+import { createCategory, fetchCategories, selectCategories } from "../../reducers/categorySlice";
 import { createProduct, uploadImage } from "../../reducers/productsSlice";
 import CategoryCreateI from "../../types/CategoryCreateI";
 import CategoryI from "../../types/CategoryI";
@@ -15,8 +15,9 @@ const AddCategory = (props: Props) => {
 	const initialCategoryState: CategoryCreateI = {
 		categoryName: "",
 		description: "",
-		parentCategoryId: 1,
+		parentId: 1,
 	};
+
 	const dispatch = useAppDispatch();
 	const [category, setCategory] = useState<CategoryCreateI>(initialCategoryState);
 	const [categoryId, setCategoryId] = useState(1);
@@ -25,12 +26,16 @@ const AddCategory = (props: Props) => {
 	if (categories !== null) {
 		parsedCategories = ParseCategories(categories);
 	}
-
 	const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
 		event.preventDefault();
+		console.log(categoryId);
+		console.log(category);
 		try {
 			const { failed } = await dispatch(createCategory(category)).unwrap();
+
+			console.log(failed);
 			if (!failed) {
+				dispatch(fetchCategories());
 				setCategory(initialCategoryState);
 			}
 		} catch (e) {
@@ -54,7 +59,7 @@ const AddCategory = (props: Props) => {
 			<br />
 			<TextField value={category.description} onChange={(e) => handleChanged(e)} required multiline rows={4} color="info" style={{ width: "200px", margin: "5px" }} type="text" name="description" label="Category Description" variant="outlined" />
 			<br />
-			<Select onChange={(e) => handleSelectChange(e)} value={categoryId} size="small" sx={{ height: 1 }} name="parentCategoryId" autoFocus>
+			<Select onChange={(e) => handleSelectChange(e)} value={categoryId} size="small" sx={{ height: 1 }} name="parentId" autoFocus>
 				{parsedCategories.map((val) => {
 					return (
 						<MenuItem key={val.id} value={val.id}>

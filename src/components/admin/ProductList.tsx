@@ -1,11 +1,11 @@
-import { CircularProgress, Select, SelectChangeEvent } from "@mui/material";
+import { Button, CircularProgress, Select, SelectChangeEvent } from "@mui/material";
 import Box from "@mui/material/Box";
 import { DataGrid, GridColDef, GridRenderCellParams, GridRenderEditCellParams, GridToolbar, GridValueGetterParams, useGridApiContext } from "@mui/x-data-grid";
 import { useEffect } from "react";
 import { collapseTextChangeRangesAcrossMultipleVersions } from "typescript";
 import { useAppDispatch, useAppSelector } from "../../app/hooks";
 import { selectCategories } from "../../reducers/categorySlice";
-import { editProduct, fetchProducts, selectError, selectProducts, selectStatus } from "../../reducers/productsSlice";
+import { deleteProduct, editProduct, fetchProducts, selectError, selectProducts, selectStatus } from "../../reducers/productsSlice";
 import CategoryI from "../../types/CategoryI";
 import ProductCreateI from "../../types/ProductCreateI";
 import ParseCategories from "../../utils/ParseCategories";
@@ -37,6 +37,9 @@ export default function ProductList() {
 		console.log(newProduct);
 		dispatch(editProduct(newProduct));
 	};
+	const handleDeleteClick = (id: number) => {
+		dispatch(deleteProduct(id));
+	};
 	const columns: GridColDef[] = [
 		{ field: "id", headerName: "ID", width: 90 },
 		{
@@ -66,6 +69,17 @@ export default function ProductList() {
 			editable: true,
 			renderEditCell: renderSelectEditInputCell,
 			renderCell: (params: GridRenderCellParams<String>) => <p>{parsedCategories.find((val) => val.id === params.row.categoryId)?.categoryName}</p>,
+		},
+		{
+			field: "button",
+			headerName: "",
+			type: "action",
+			width: 150,
+			renderCell: (params) => (
+				<Button color="secondary" onClick={() => handleDeleteClick(params.row.id)}>
+					Delete
+				</Button>
+			),
 		},
 	];
 
