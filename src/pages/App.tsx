@@ -12,6 +12,7 @@ import { useAppDispatch, useAppSelector } from "../app/hooks";
 import ProfilePage from "./ProfilePage";
 import { selectUser, selectUserIsLogged } from "../reducers/authSlice";
 import AdminPage from "./AdminPage";
+import CartPage from "./CartPage";
 
 function App() {
 	const user = useAppSelector(selectUser);
@@ -25,6 +26,7 @@ function App() {
 			<Navbar isAdmin={isAdmin} />
 			<Routes>
 				<Route path="/" element={<HomePage />}></Route>
+				<Route path="/cart" element={<CartPage />}></Route>
 				<Route path="/product/:slug" element={<ProductPage />}></Route>
 				<Route path="/profile" element={<ProfilePage />}></Route>
 				<Route path="/login" element={<LoginPage />}></Route>
