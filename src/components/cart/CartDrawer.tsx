@@ -4,6 +4,7 @@ import { Box } from "@mui/system";
 import React, { useEffect, useState } from "react";
 import { useAppDispatch, useAppSelector } from "../../app/hooks";
 import { fetchCart, selectCart, selectCartStatus } from "../../reducers/cartSlice";
+import { CalculateTotalCost } from "../../utils/CalculateTotalCost";
 import { IDLE } from "../../utils/states";
 import CartItem from "./CartItem";
 
@@ -37,6 +38,14 @@ const CartDrawer = ({ open, onClose }: Props) => {
 						return <CartItem key={cartItem.id} cartItemId={cartItem.id} product={cartItem.product} quantity={cartItem.quantity} />;
 					})}
 				</Box>
+			</Box>
+			<Box sx={{ padding: "20px", marginTop: "auto" }}>
+				<Button color="secondary" variant="contained" sx={{ width: "100%", textTransform: "none" }}>
+					Checkout now (${CalculateTotalCost(cart.cartItems)})
+				</Button>
+				<Button color="secondary" variant="outlined" sx={{ width: "100%", textTransform: "none", marginY: "10px" }}>
+					View Cart
+				</Button>
 			</Box>
 		</Drawer>
 	);

@@ -31,7 +31,7 @@ function HomePage() {
 		content = <p>Loading</p>;
 	} else if (productStatus === FULLFILLED) {
 		content = products.map((product) => (
-			<Grid xs={2} sm={4} md={3} key={product.id} item>
+			<Grid xs={4} sm={4} md={4} lg={3} key={product.id} item>
 				<Product product={product} />
 			</Grid>
 		));
@@ -40,9 +40,11 @@ function HomePage() {
 	}
 
 	return (
-		<Grid container spacing={2} columns={{ xs: 4, sm: 8, md: 12 }}>
-			{content}
-		</Grid>
+		<Box sx={{ display: "flex", alignItems: "center", justifyContent: "center" }}>
+			<Grid container spacing={2} columns={{ xs: 4, sm: 8, md: 12, lg: 12 }} sx={{ width: "100%", maxWidth: "1240px" }}>
+				{content}
+			</Grid>
+		</Box>
 	);
 }
 

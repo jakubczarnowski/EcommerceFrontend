@@ -1,4 +1,4 @@
-import { Add, AddCircleOutlineOutlined, Delete, Remove, RemoveCircleOutlineOutlined } from "@mui/icons-material";
+import { Add, AddCircleOutlineOutlined, Clear, Delete, Remove, RemoveCircleOutlineOutlined } from "@mui/icons-material";
 import { Avatar, Box, Button, IconButton, Typography } from "@mui/material";
 import React from "react";
 import { Link } from "react-router-dom";
@@ -41,12 +41,12 @@ const CartItem = ({ product, quantity, cartItemId }: Props) => {
 				<Typography variant="caption" sx={{ fontSize: "10px" }}>
 					${product.price} x {quantity}
 				</Typography>
-				<Typography variant="h5" color="secondary" sx={{ fontSize: "14px", fontWeight: "600" }}>
+				<Typography variant="h5" color="secondary" sx={{ fontSize: "14px", fontWeight: "500" }}>
 					${product.price * quantity}
 				</Typography>
 			</Box>
 			<IconButton onClick={() => dispatch(changeQuantity({ id: cartItemId, productId: product.id, quantity: 0 }))} color="secondary">
-				<Delete />
+				<Clear color="disabled" />
 			</IconButton>
 		</Box>
 	);

@@ -39,7 +39,7 @@ const Product = ({ product }: ProductProps) => {
 				<IconButton sx={{ padding: "5px", paddingBottom: "0", top: "7px", right: "15px", position: "absolute" }} aria-label="favorite" onClick={(e) => handleClickFavorite(e)}>
 					{favorite ? <Favorite color="secondary" /> : <FavoriteBorder />}
 				</IconButton>
-				<img style={{ objectFit: "fill", width: "100%", height: "100%" }} src={BaseImageUrl + product.imagesUrl[0]} alt="product" />
+				<img style={{ objectFit: "fill", width: "100%", height: "100%", aspectRatio: "1/1" }} src={BaseImageUrl + product.imagesUrl[0]} alt="product" />
 			</Box>
 			<Box sx={{ display: "flex", padding: "1rem" }}>
 				<Box sx={{ display: "flex", flexDirection: "column", minWidth: "0px", justifyContent: "left", marginRight: "auto" }}>
