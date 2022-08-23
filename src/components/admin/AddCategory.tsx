@@ -53,7 +53,7 @@ const AddCategory = (props: Props) => {
 	};
 
 	return (
-		<form onSubmit={(e) => handleSubmit(e)}>
+		<form onSubmit={(e) => handleSubmit(e)} style={{ display: "flex", alignItems: "center", flexDirection: "column", justifyContent: "center" }}>
 			<br />
 			<TextField value={category.categoryName} onChange={(e) => handleChanged(e)} required color="info" style={{ width: "200px", margin: "5px" }} type="text" label="Category Name" name="categoryName" variant="outlined" />
 			<br />

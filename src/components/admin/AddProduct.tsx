@@ -73,7 +73,7 @@ const AddProduct = (props: Props) => {
 		setProduct((prev) => ({ ...prev, imagesUrl: [...(prev.imagesUrl ?? []), name] }));
 	};
 	return (
-		<form onSubmit={(e) => handleSubmit(e)}>
+		<form onSubmit={(e) => handleSubmit(e)} style={{ display: "flex", alignItems: "center", flexDirection: "column", justifyContent: "center" }}>
 			<br />
 			<TextField value={product.name} onChange={(e) => handleChanged(e)} required color="info" style={{ width: "200px", margin: "5px" }} type="text" label="Product Name" name="name" variant="outlined" />
 			<br />
