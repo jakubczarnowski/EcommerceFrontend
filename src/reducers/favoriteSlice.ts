@@ -27,7 +27,7 @@ export const addFavorite = createAsyncThunk("favorite/addFavorite", async (produ
 		return response.data;
 	} catch (e: any) {
 		thunkAPI.dispatch(setMessage({ message: "Failed to add favorite", error: true }));
-		thunkAPI.rejectWithValue(e.response.message);
+		return thunkAPI.rejectWithValue(e.response.message);
 	}
 });
 export const deleteFavorite = createAsyncThunk("favorite/deleteFavorite", async (product_id: Number, thunkAPI) => {
@@ -35,15 +35,17 @@ export const deleteFavorite = createAsyncThunk("favorite/deleteFavorite", async 
 		const response = await axiosInstance.delete(`/favorite/${product_id}`);
 		return response.data;
 	} catch (e: any) {
-		thunkAPI.dispatch(setMessage({ message: "Failed to add favorite", error: true }));
-		thunkAPI.rejectWithValue(e.response.message);
+		thunkAPI.dispatch(setMessage({ message: "Failed to remove favorite", error: true }));
+		return thunkAPI.rejectWithValue(e.response.message);
 	}
 });
 
 export const favoriteSlice = createSlice({
 	name: "favorite",
 	initialState,
-	reducers: {},
+	reducers: {
+		resetState: (state) => initialState,
+	},
 	extraReducers: (builder) => {
 		builder
 			.addCase(fetchFavorite.pending, (state) => {
@@ -63,4 +65,5 @@ export const favoriteSlice = createSlice({
 export const selectFavorite = (state: RootState) => state.favorite.products;
 export const selectFavoriteStatus = (state: RootState) => state.favorite.status;
 export const selectFavoriteError = (state: RootState) => state.favorite.error;
+export const resetFavoriteState = favoriteSlice.actions.resetState;
 export default favoriteSlice.reducer;

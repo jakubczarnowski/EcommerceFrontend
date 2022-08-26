@@ -5,7 +5,7 @@ import CardActions from "@mui/material/CardActions";
 import CardContent from "@mui/material/CardContent";
 import Button from "@mui/material/Button";
 import Typography from "@mui/material/Typography";
-import { Add, AddBoxOutlined, Favorite, FavoriteBorder, Remove } from "@mui/icons-material";
+import { Add, AddBoxOutlined, Favorite, FavoriteBorder, Remove, TrySharp } from "@mui/icons-material";
 import { CardMedia, Chip, IconButton, Rating } from "@mui/material";
 import { useState } from "react";
 import ProductI from "../../types/ProductI";
@@ -13,6 +13,7 @@ import { useAppDispatch, useAppSelector } from "../../app/hooks";
 import { addFavorite, deleteFavorite } from "../../reducers/favoriteSlice";
 import { BaseImageUrl } from "../../utils/BaseImageUrl";
 import { addToCart, changeQuantity, selectCartItemByProductId, selectExistsInCart } from "../../reducers/cartSlice";
+import { gridColumnsTotalWidthSelector } from "@mui/x-data-grid";
 type ProductProps = {
 	product: ProductI;
 };
@@ -22,15 +23,18 @@ const Product = ({ product }: ProductProps) => {
 	const cartItem = useAppSelector((state) => selectCartItemByProductId(state, product.id));
 	const existsInCart = cartItem !== undefined;
 	const [favorite, setFavorite] = useState(product.favorite);
-	const handleClickFavorite = (e: React.MouseEvent<HTMLButtonElement, MouseEvent>) => {
+	const handleClickFavorite = async (e: React.MouseEvent<HTMLButtonElement, MouseEvent>) => {
 		e.preventDefault();
+		let res;
 		if (!favorite) {
-			dispatch(addFavorite(product.id));
+			res = await dispatch(addFavorite(product.id));
 		} else {
 			console.log(product);
-			dispatch(deleteFavorite(product.id));
+			res = await dispatch(deleteFavorite(product.id));
 		}
-		setFavorite(!favorite);
+		if (res.meta.requestStatus !== "rejected") {
+			setFavorite(!favorite);
+		}
 	};
 	return (
 		<Card sx={{ minWidth: 275, backgroundColor: "primary.main", margin: "5px", display: "flex", flexDirection: "column", height: "100%", maxWidth: "440px" }}>
@@ -39,7 +43,7 @@ const Product = ({ product }: ProductProps) => {
 				<IconButton sx={{ padding: "5px", paddingBottom: "0", top: "7px", right: "15px", position: "absolute" }} aria-label="favorite" onClick={(e) => handleClickFavorite(e)}>
 					{favorite ? <Favorite color="secondary" /> : <FavoriteBorder />}
 				</IconButton>
-				<img style={{ objectFit: "fill", width: "100%", height: "100%", aspectRatio: "1/1" }} src={BaseImageUrl + product.imagesUrl[0]} alt="product" />
+				<img style={{ objectFit: "contain", width: "100%", height: "100%", aspectRatio: "1/1" }} src={BaseImageUrl + product.imagesUrl[0]} alt="product" />
 			</Box>
 			<Box sx={{ display: "flex", padding: "1rem" }}>
 				<Box sx={{ display: "flex", flexDirection: "column", minWidth: "0px", justifyContent: "left", marginRight: "auto" }}>

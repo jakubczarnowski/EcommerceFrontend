@@ -13,7 +13,7 @@ const themeOptions = {
 			main: "#d23f57",
 		},
 		background: {
-			default: "#d9e6f2",
+			default: "#f6f9fc",
 		},
 		text: {
 			secondary: "#7d879c",

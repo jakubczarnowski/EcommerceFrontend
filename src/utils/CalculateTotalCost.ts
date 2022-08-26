@@ -5,5 +5,5 @@ export const CalculateTotalCost = (cartItems: CartItemI[]) => {
 	cartItems.forEach((cartItem) => {
 		totalCost += cartItem.product.price * cartItem.quantity;
 	});
-	return totalCost;
+	return totalCost.toFixed(2);
 };

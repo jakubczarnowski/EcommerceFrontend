@@ -4,12 +4,6 @@
 	--background: #f6f9fc;
 }
 
-.productContainer {
-	display: flex;
-	align-items: center;
-	justify-content: center;
-	flex-wrap: wrap;
-}
 body {
 	background-color: var(--background);
 	margin: 0px;
@@ -18,17 +12,3 @@ a {
 	color: inherit;
 	text-decoration: none;
 }
-/* primary: {
-    main: '#ffffff',
-    dark: '#787878'
-  },
-  secondary: {
-    main: '#d23f57',
-  },
-  background: {
-    default: '#f6f9fc',
-  },
-  text: {
-    secondary: '#7d879c',
-    primary: '#2B3445',
-  }, */

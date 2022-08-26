@@ -15,6 +15,8 @@ import { createTheme, ThemeProvider } from "@mui/material/styles";
 import LoginParams from "../types/LoginParams";
 import { useAppDispatch, useAppSelector } from "../app/hooks";
 import { login, selectUser, selectUserIsLogged } from "../reducers/authSlice";
+import { fetchFavorite } from "../reducers/favoriteSlice";
+import { fetchCart } from "../reducers/cartSlice";
 
 interface FormData {
 	username: string;
@@ -34,7 +36,11 @@ export default function LoginPage() {
 	const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
 		event.preventDefault();
 		try {
-			const result = await dispatch(login(formData)).unwrap();
+			const result = await dispatch(login(formData));
+			if (result.meta.requestStatus === "fulfilled") {
+				dispatch(fetchFavorite());
+				dispatch(fetchCart());
+			}
 			navigate("/");
 		} catch (e) {
 			console.log(e);

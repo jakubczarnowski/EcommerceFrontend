@@ -1,6 +1,4 @@
 import React, { useEffect } from "react";
-import logo from "../logo.svg";
-import "../App.css";
 import Navbar from "../components/Navbar/Navbar";
 import { Routes, Route, Navigate } from "react-router";
 import HomePage from "./HomePage";
@@ -13,6 +11,8 @@ import ProfilePage from "./ProfilePage";
 import { selectUser, selectUserIsLogged } from "../reducers/authSlice";
 import AdminPage from "./AdminPage";
 import CartPage from "./CartPage";
+import CheckoutPage from "./CheckoutPage";
+import { Box } from "@mui/material";
 
 function App() {
 	const user = useAppSelector(selectUser);
@@ -22,11 +22,12 @@ function App() {
 		isAdmin = user?.roles.includes("ROLE_ADMIN");
 	}
 	return (
-		<div className="App">
+		<Box>
 			<Navbar isAdmin={isAdmin} />
 			<Routes>
 				<Route path="/" element={<HomePage />}></Route>
 				<Route path="/cart" element={<CartPage />}></Route>
+				<Route path="/checkout" element={<CheckoutPage />}></Route>
 				<Route path="/product/:slug" element={<ProductPage />}></Route>
 				<Route path="/profile" element={<ProfilePage />}></Route>
 				<Route path="/login" element={<LoginPage />}></Route>
@@ -34,7 +35,7 @@ function App() {
 				<Route path="*" element={<Navigate replace to="/" />}></Route>
 				<Route path="/admin" element={isAdmin ? <AdminPage /> : <Navigate replace to="/" />} />
 			</Routes>
-		</div>
+		</Box>
 	);
 }
 

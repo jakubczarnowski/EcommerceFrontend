@@ -2,6 +2,7 @@ import { ShoppingBagOutlined } from "@mui/icons-material";
 import { Button, Divider, Drawer, Typography } from "@mui/material";
 import { Box } from "@mui/system";
 import React, { useEffect, useState } from "react";
+import { useNavigate } from "react-router";
 import { useAppDispatch, useAppSelector } from "../../app/hooks";
 import { fetchCart, selectCart, selectCartStatus } from "../../reducers/cartSlice";
 import { CalculateTotalCost } from "../../utils/CalculateTotalCost";
@@ -14,6 +15,7 @@ type Props = {
 };
 
 const CartDrawer = ({ open, onClose }: Props) => {
+	const navigate = useNavigate();
 	const cart = useAppSelector(selectCart);
 	const status = useAppSelector(selectCartStatus);
 	const anchor = "right";
@@ -34,16 +36,26 @@ const CartDrawer = ({ open, onClose }: Props) => {
 						</Typography>
 					</Box>
 					<Divider />
-					{cart.cartItems.map((cartItem) => {
-						return <CartItem key={cartItem.id} cartItemId={cartItem.id} product={cartItem.product} quantity={cartItem.quantity} />;
-					})}
+					{cart.cartItems != undefined
+						? cart.cartItems.map((cartItem) => {
+								return <CartItem key={cartItem.id} cartItemId={cartItem.id} product={cartItem.product} quantity={cartItem.quantity} />;
+						  })
+						: ""}
 				</Box>
 			</Box>
 			<Box sx={{ padding: "20px", marginTop: "auto" }}>
-				<Button color="secondary" variant="contained" sx={{ width: "100%", textTransform: "none" }}>
+				<Button color="secondary" onClick={() => navigate("/checkout")} variant="contained" sx={{ width: "100%", textTransform: "none" }}>
 					Checkout now (${CalculateTotalCost(cart.cartItems)})
 				</Button>
-				<Button color="secondary" variant="outlined" sx={{ width: "100%", textTransform: "none", marginY: "10px" }}>
+				<Button
+					onClick={() => {
+						navigate("/cart");
+						onClose();
+					}}
+					color="secondary"
+					variant="outlined"
+					sx={{ width: "100%", textTransform: "none", marginY: "10px" }}
+				>
 					View Cart
 				</Button>
 			</Box>

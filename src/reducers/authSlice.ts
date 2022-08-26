@@ -8,6 +8,8 @@ import LoginParams from "../types/LoginParams";
 import RegisterParamas from "../types/RegisterParams";
 import UserI from "../types/UserI";
 import { IDLE } from "../utils/states";
+import { resetCartState } from "./cartSlice";
+import { resetFavoriteState } from "./favoriteSlice";
 import { setMessage } from "./messageSlice";
 
 interface AuthState {
@@ -45,8 +47,10 @@ export const login = createAsyncThunk("auth/login", async (parameters: LoginPara
 	}
 });
 
-export const logout = createAsyncThunk("auth/logout", async () => {
+export const logout = createAsyncThunk("auth/logout", async (_, thunkAPI) => {
 	localStorage.removeItem("user");
+	thunkAPI.dispatch(resetCartState());
+	thunkAPI.dispatch(resetFavoriteState());
 });
 
 const initialState: AuthState = user ? { isLoggedIn: true, user: user, status: IDLE } : { isLoggedIn: false, user: null, status: IDLE };

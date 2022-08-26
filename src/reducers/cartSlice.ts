@@ -10,6 +10,7 @@ import { CarCrashTwoTone } from "@mui/icons-material";
 import CartI from "../types/CartI";
 import AddToCartI from "../types/AddToCartI";
 import { queryAllByAltText } from "@testing-library/react";
+import { stat } from "fs";
 
 interface CartState {
 	cart: CartI;
@@ -26,35 +27,38 @@ const initialState: CartState = {
 	error: undefined,
 };
 
-export const fetchCart = createAsyncThunk("favorite/fetchCart", async () => {
+export const fetchCart = createAsyncThunk("cart/fetchCart", async () => {
 	const response = await axiosInstance.get("/cart/");
 	return response.data;
 });
 
-export const addToCart = createAsyncThunk("favorite/addToCart", async (data: AddToCartI, thunkAPI) => {
+export const addToCart = createAsyncThunk("cart/addToCart", async (data: AddToCartI, thunkAPI) => {
 	try {
 		const response = await axiosInstance.post(`/cart/`, data);
 		return response.data;
 	} catch (e: any) {
 		thunkAPI.dispatch(setMessage({ message: "Failed to add to cart", error: true }));
-		thunkAPI.rejectWithValue(e.response.message);
+		return thunkAPI.rejectWithValue(e.response.message);
 	}
 });
-export const changeQuantity = createAsyncThunk("favorite/changeQuantity", async (data: AddToCartI, thunkAPI) => {
+export const changeQuantity = createAsyncThunk("cart/changeQuantity", async (data: AddToCartI, thunkAPI) => {
 	try {
 		const response = await axiosInstance.put(`/cart/`, data);
 		console.log(response);
 		return response.data;
 	} catch (e: any) {
 		thunkAPI.dispatch(setMessage({ message: "Failed to change quantity", error: true }));
-		thunkAPI.rejectWithValue(e.response.message);
+		console.log(e);
+		return thunkAPI.rejectWithValue(e.response.message);
 	}
 });
 
 export const cartSlice = createSlice({
 	name: "cart",
 	initialState,
-	reducers: {},
+	reducers: {
+		resetState: (state) => initialState,
+	},
 	extraReducers: (builder) => {
 		builder
 			.addCase(fetchCart.pending, (state) => {
@@ -69,7 +73,12 @@ export const cartSlice = createSlice({
 				state.error = action.error.message;
 			})
 			.addCase(addToCart.fulfilled, (state, action) => {
+				console.log(action);
 				state.cart.cartItems.push(action.payload);
+			})
+
+			.addCase(addToCart.rejected, (state, action) => {
+				console.log(action);
 			})
 			.addCase(changeQuantity.fulfilled, (state, action) => {
 				let cartId = state.cart.cartItems.findIndex((item) => item.id === action.payload.id);
@@ -86,4 +95,5 @@ export const selectCartStatus = (state: RootState) => state.cart.status;
 export const selectCartError = (state: RootState) => state.cart.error;
 export const selectExistsInCart = (state: RootState, id: number) => state.cart.cart.cartItems.find((item) => item.id === id) !== undefined;
 export const selectCartItemByProductId = (state: RootState, id: number) => state.cart.cart.cartItems.find((item) => item.product.id === id);
+export const resetCartState = cartSlice.actions.resetState;
 export default cartSlice.reducer;

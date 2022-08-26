@@ -27,7 +27,7 @@ export const deleteCategory = createAsyncThunk("categories/deleteCategory", asyn
 	const response = await axiosInstance.delete("/category/" + id, {});
 	return response.data;
 });
-export const createCategory = createAsyncThunk("products/createCategory", async (category: CategoryCreateI, thunkAPI) => {
+export const createCategory = createAsyncThunk("categories/createCategory", async (category: CategoryCreateI, thunkAPI) => {
 	try {
 		const response = await axiosInstance.post("/category", JSON.stringify(category));
 		thunkAPI.dispatch(setMessage({ message: "Category added", error: false }));
@@ -38,7 +38,7 @@ export const createCategory = createAsyncThunk("products/createCategory", async 
 	}
 });
 
-export const editProduct = createAsyncThunk("products/editCategory", async (category: CategoryCreateI, thunkAPI) => {
+export const editProduct = createAsyncThunk("categories/editCategory", async (category: CategoryCreateI, thunkAPI) => {
 	try {
 		const response = await axiosInstance.put("/category/" + category.id, JSON.stringify(category));
 		return response.data;
