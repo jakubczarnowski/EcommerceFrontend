@@ -50,7 +50,7 @@ export const deleteProduct = createAsyncThunk("products/deleteProduct", async (i
 
 export const editProduct = createAsyncThunk("products/editProduct", async (product: ProductCreateI, thunkAPI) => {
 	try {
-		const response = await axiosInstance.put("/products/" + product.id, JSON.stringify(product));
+		const response = await axiosInstance.patch("/products/" + product.id, JSON.stringify(product));
 		return response.data;
 	} catch (err: any) {
 		thunkAPI.dispatch(setMessage({ message: err.response.data.message, error: true }));

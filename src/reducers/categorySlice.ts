@@ -6,6 +6,7 @@ import { FAILED, FULLFILLED, IDLE, LOADING } from "../utils/states";
 import CategoryI from "../types/CategoryI";
 import CategoryCreateI from "../types/CategoryCreateI";
 import { setMessage } from "./messageSlice";
+import CategoryEditI from "../types/CategoryEditI";
 
 export interface CategoryState {
 	categories: CategoryI | null;
@@ -38,9 +39,9 @@ export const createCategory = createAsyncThunk("categories/createCategory", asyn
 	}
 });
 
-export const editProduct = createAsyncThunk("categories/editCategory", async (category: CategoryCreateI, thunkAPI) => {
+export const editCategory = createAsyncThunk("categories/editCategory", async (category: CategoryEditI, thunkAPI) => {
 	try {
-		const response = await axiosInstance.put("/category/" + category.id, JSON.stringify(category));
+		const response = await axiosInstance.patch("/category/" + category.id, JSON.stringify(category));
 		return response.data;
 	} catch (err: any) {
 		thunkAPI.dispatch(setMessage({ message: err.response.data.message, error: true }));

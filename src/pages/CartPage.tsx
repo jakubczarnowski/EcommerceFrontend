@@ -25,12 +25,12 @@ const CartPage = (props: Props) => {
 				<Chip label="3. Review" variant="outlined" color="secondary" sx={{ width: "100px", fontSize: "14px" }} />
 			</Box>
 			<Box sx={{ width: "100%", display: "flex", flexDirection: "row", flexWrap: "wrap", gap: "50px" }}>
-				<Box sx={{ minWidth: { md: "66.66%", sm: "100%", xs: "100%" } }}>
+				<Box sx={{ flexGrow: "2", minWidth: { md: "66.66%", sm: "100%", xs: "100%" } }}>
 					{cart.cartItems.map((item) => {
 						return <CartPageItem product={item.product} quantity={item.quantity} cartItemId={item.id} key={item.id} />;
 					})}
 				</Box>
-				<Box sx={{ flexGrow: "2", marginY: "20px" }}>
+				<Box sx={{ flexGrow: "1", marginY: "20px" }}>
 					<Paper elevation={1} sx={{ padding: "24px" }}>
 						<Box sx={{ display: "flex", alignItems: "center", flexDirection: "row", justifyContent: "space-between" }}>
 							<Typography component="span" color="primary.dark">
@@ -41,7 +41,7 @@ const CartPage = (props: Props) => {
 							</Typography>
 						</Box>
 						<Divider />
-						<Box sx={{ flexGrow: "1", marginY: "30px" }}>
+						<Box sx={{ marginY: "30px" }}>
 							<Box sx={{ display: "flex", alignItems: "center" }}>
 								<Typography component="span" sx={{ fontWeight: "500" }}>
 									Aditional Comments

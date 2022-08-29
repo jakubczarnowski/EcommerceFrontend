@@ -3,8 +3,10 @@ import Box from "@mui/material/Box";
 import { DataGrid, GridActionsCellItem, GridColDef, GridColumns, GridRenderCellParams, GridRenderEditCellParams, GridRowId, GridToolbar, GridValueGetterParams, useGridApiContext } from "@mui/x-data-grid";
 import { useEffect, useState } from "react";
 import { useAppDispatch, useAppSelector } from "../../app/hooks";
-import { deleteCategory, fetchCategories, selectCategories } from "../../reducers/categorySlice";
+import { deleteCategory, editCategory, fetchCategories, selectCategories } from "../../reducers/categorySlice";
 import { editProduct, fetchProducts, selectError, selectProducts, selectStatus } from "../../reducers/productsSlice";
+import CategoryCreateI from "../../types/CategoryCreateI";
+import CategoryEditI from "../../types/CategoryEditI";
 import CategoryI from "../../types/CategoryI";
 import ProductCreateI from "../../types/ProductCreateI";
 import ParseCategories from "../../utils/ParseCategories";
@@ -73,7 +75,10 @@ export default function CategoryList() {
 		},
 	];
 	console.log(selectedIds);
-	const onCellEdit = (params: any) => {};
+	const onCellEdit = (params: any) => {
+		let newCategory: CategoryEditI = { [params.field]: params.value, id: params.id };
+		dispatch(editCategory(newCategory));
+	};
 	return (
 		<Box sx={{ height: 400, width: "100%" }}>
 			<DataGrid
