@@ -177,7 +177,6 @@ export default function Navbar({ isAdmin }: Props) {
 				vertical: "bottom",
 				horizontal: "right",
 			}}
-			id={mobileMenuId}
 			keepMounted
 			transformOrigin={{
 				vertical: "top",
