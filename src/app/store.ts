@@ -6,6 +6,7 @@ import messageSlice from "../reducers/messageSlice";
 import favoriteSlice from "../reducers/favoriteSlice";
 import cartSlice from "../reducers/cartSlice";
 import addressSlice from "../reducers/addressSlice";
+import orderSlice from "../reducers/orderSlice";
 export const store = configureStore({
 	reducer: {
 		products: productsReducer,
@@ -15,6 +16,7 @@ export const store = configureStore({
 		favorite: favoriteSlice,
 		cart: cartSlice,
 		address: addressSlice,
+		order: orderSlice,
 	},
 });
 

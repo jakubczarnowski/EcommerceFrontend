@@ -1,6 +1,6 @@
 import { Close } from "@mui/icons-material";
 import { Alert, Box, Collapse, IconButton } from "@mui/material";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 
 import { useAppDispatch, useAppSelector } from "../app/hooks";
 import { clearMessage, selectMessage } from "../reducers/messageSlice";
@@ -13,6 +13,14 @@ const MessageDropdown = (props: Props) => {
 	if (message && !open) {
 		setOpen(true);
 	}
+	useEffect(() => {
+		const timer = setTimeout(() => {
+			setOpen(false);
+			dispatch(clearMessage());
+		}, 3000);
+		return () => clearTimeout(timer);
+	}, [message]);
+
 	return (
 		<Box sx={{ width: "100%", marginTop: "5px", zIndex: "1202", position: "relative" }}>
 			<Collapse in={open} timeout={"auto"} sx={{ mb: 2, paddingBottom: "0", marginBottom: "0" }}>

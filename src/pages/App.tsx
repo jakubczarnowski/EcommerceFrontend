@@ -13,11 +13,11 @@ import AdminPage from "./AdminPage";
 import CartPage from "./CartPage";
 import CheckoutPage from "./CheckoutPage";
 import { Box } from "@mui/material";
+import PaymentPage from "./PaymentPage";
 
 function App() {
 	const user = useAppSelector(selectUser);
 	let isAdmin = false;
-	console.log(user);
 	if (user !== null) {
 		isAdmin = user?.roles.includes("ROLE_ADMIN");
 	}
@@ -34,6 +34,7 @@ function App() {
 				<Route path="/register" element={<RegisterPage />}></Route>
 				<Route path="*" element={<Navigate replace to="/" />}></Route>
 				<Route path="/admin" element={isAdmin ? <AdminPage /> : <Navigate replace to="/" />} />
+				<Route path="/payment" element={<PaymentPage />} />
 			</Routes>
 		</Box>
 	);

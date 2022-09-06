@@ -5,17 +5,31 @@ import OrderList from "../components/checkout/OrderList";
 import SelectAddress from "../components/checkout/SelectAddress";
 import Payment from "../components/checkout/Payment";
 import { selectCart } from "../reducers/cartSlice";
+import { useNavigate } from "react-router";
+import { addOrder } from "../reducers/orderSlice";
+import { useFirstRender } from "@mui/x-data-grid";
+import { setMessage } from "../reducers/messageSlice";
 
-type Props = {};
+type Props = {
+	moreInfo?: string;
+};
 
-const CheckoutPage = (props: Props) => {
+const CheckoutPage = ({ moreInfo }: Props) => {
 	const dispatch = useAppDispatch();
 	const cart = useAppSelector(selectCart);
+	const navigate = useNavigate();
+	const handleSubmit = () => {
+		if (selectedAddressId === 0) {
+			dispatch(setMessage({ error: false, message: "Pick delivery address before checkout" }));
+			return;
+		}
+		dispatch(addOrder({ moreInfo: moreInfo || "", deliveryAddressId: selectedAddressId }));
+		navigate("/payment");
+	};
 	const [selectedAddressId, setSelectedAddressId] = useState(0);
 	const handleSelectedAddressChange = (id: number) => {
 		setSelectedAddressId(id);
 	};
-	const onSubmit = () => {};
 	console.log(selectedAddressId);
 	return (
 		<Box sx={{ width: "100%", height: "100%", backgroundColor: "primary.main", margin: "0", padding: "0", position: "absolute", overflow: "hidden" }}>
@@ -23,7 +37,7 @@ const CheckoutPage = (props: Props) => {
 				<Box sx={{ display: "flex", flexDirection: "row", gap: "40px", flexWrap: { md: "noWrap", sm: "wrap", xs: "wrap" }, width: "100%" }}>
 					<Box sx={{ flexGrow: "2", minWidth: { md: "66.66%", sm: "100%", xs: "100%" } }}>
 						<SelectAddress setSelectedAddress={handleSelectedAddressChange} selectedAddressId={selectedAddressId} />
-						<Payment />
+						<Payment handleSubmit={handleSubmit} />
 					</Box>
 					<OrderList cart={cart} />
 				</Box>
