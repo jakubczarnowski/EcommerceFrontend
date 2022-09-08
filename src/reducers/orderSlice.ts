@@ -61,6 +61,7 @@ export const orderSlice = createSlice({
 			})
 			.addCase(fetchOrders.fulfilled, (state, action) => {
 				state.orders = action.payload;
+				state.orders.sort((a, b) => new Date(b.timeOrdered).getTime() - new Date(a.timeOrdered).getTime());
 				state.status = FULLFILLED;
 			})
 			.addCase(fetchOrders.rejected, (state, action) => {

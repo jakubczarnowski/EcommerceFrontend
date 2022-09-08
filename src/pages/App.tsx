@@ -14,6 +14,7 @@ import CartPage from "./CartPage";
 import CheckoutPage from "./CheckoutPage";
 import { Box } from "@mui/material";
 import PaymentPage from "./PaymentPage";
+import Orders from "../components/profile/Orders";
 
 function App() {
 	const user = useAppSelector(selectUser);
@@ -29,7 +30,7 @@ function App() {
 				<Route path="/cart" element={<CartPage />}></Route>
 				<Route path="/checkout" element={<CheckoutPage />}></Route>
 				<Route path="/product/:slug" element={<ProductPage />}></Route>
-				<Route path="/profile" element={<ProfilePage />}></Route>
+				<Route path="/profile/*" element={<ProfilePage />}></Route>
 				<Route path="/login" element={<LoginPage />}></Route>
 				<Route path="/register" element={<RegisterPage />}></Route>
 				<Route path="*" element={<Navigate replace to="/" />}></Route>

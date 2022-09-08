@@ -91,6 +91,13 @@ export const cartSlice = createSlice({
 });
 
 export const selectCart = (state: RootState) => state.cart.cart;
+export const selectCartItemsLength = (state: RootState) => {
+	let len = 0;
+	state.cart.cart.cartItems.forEach((val) => {
+		len += val.quantity;
+	});
+	return len;
+};
 export const selectCartStatus = (state: RootState) => state.cart.status;
 export const selectCartError = (state: RootState) => state.cart.error;
 export const selectExistsInCart = (state: RootState, id: number) => state.cart.cart.cartItems.find((item) => item.id === id) !== undefined;

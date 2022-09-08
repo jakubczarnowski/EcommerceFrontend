@@ -20,6 +20,7 @@ import { useAppDispatch, useAppSelector } from "../../app/hooks";
 import MessageDropdown from "../MessageDropdown";
 import { useState } from "react";
 import CartDrawer from "../cart/CartDrawer";
+import { selectCart, selectCartItemsLength } from "../../reducers/cartSlice";
 
 type Props = {
 	isAdmin: boolean;
@@ -79,6 +80,7 @@ export default function Navbar({ isAdmin }: Props) {
 	const [mobileMoreAnchorEl, setMobileMoreAnchorEl] = React.useState<null | HTMLElement>(null);
 	const loggedIn = useAppSelector(selectUserIsLogged);
 	const user = useAppSelector(selectUser);
+	const cartItemsLength = useAppSelector(selectCartItemsLength);
 	const isMobileMenuOpen = Boolean(mobileMoreAnchorEl);
 	const dispatch = useAppDispatch();
 	const handleMobileMenuClose = () => {
@@ -251,7 +253,7 @@ export default function Navbar({ isAdmin }: Props) {
 								<AccountCircle />
 							</IconButton>
 							<IconButton onClick={() => setCartOpen(!cartOpen)} size="large" aria-label="Open cart" color="inherit">
-								<Badge badgeContent={17} color="error">
+								<Badge badgeContent={cartItemsLength} color="error">
 									<ShoppingCart />
 								</Badge>
 							</IconButton>

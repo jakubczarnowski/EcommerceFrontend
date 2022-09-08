@@ -73,7 +73,24 @@ export const uploadImage = createAsyncThunk("products/uploadPicture", async (ima
 		thunkAPI.rejectWithValue(err.message);
 	}
 });
-
+export const addFavorite = createAsyncThunk("favorite/addFavorite", async (product_id: Number, thunkAPI) => {
+	try {
+		const response = await axiosInstance.post(`/favorite?product_id=${product_id}`);
+		return product_id;
+	} catch (e: any) {
+		thunkAPI.dispatch(setMessage({ message: "Failed to add favorite", error: true }));
+		return thunkAPI.rejectWithValue(e.response.message);
+	}
+});
+export const deleteFavorite = createAsyncThunk("favorite/deleteFavorite", async (product_id: Number, thunkAPI) => {
+	try {
+		const response = await axiosInstance.delete(`/favorite/${product_id}`);
+		return product_id;
+	} catch (e: any) {
+		thunkAPI.dispatch(setMessage({ message: "Failed to remove favorite", error: true }));
+		return thunkAPI.rejectWithValue(e.response.message);
+	}
+});
 export const productSlice = createSlice({
 	name: "products",
 	initialState,
@@ -98,10 +115,22 @@ export const productSlice = createSlice({
 			.addCase(deleteProduct.fulfilled, (state, action) => {
 				const id: number = state.products.findIndex((val) => val.id === action.payload);
 				state.products.splice(id, 1);
+			})
+			.addCase(addFavorite.fulfilled, (state, action) => {
+				const index = state.products.findIndex((val) => val.id === action.payload);
+				const newProduct = state.products[index];
+				newProduct.favorite = true;
+				state.products[index] = newProduct;
+			})
+			.addCase(deleteFavorite.fulfilled, (state, action) => {
+				const index = state.products.findIndex((val) => val.id === action.payload);
+				const newProduct = state.products[index];
+				newProduct.favorite = false;
+				state.products[index] = newProduct;
 			});
 	},
 });
-
+export const selectFavoriteProducts = (state: RootState) => state.products.products.filter((val) => val.favorite === true);
 export const selectProducts = (state: RootState) => state.products.products;
 export const selectStatus = (state: RootState) => state.products.status;
 export const selectError = (state: RootState) => state.products.error;

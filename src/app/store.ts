@@ -3,7 +3,6 @@ import productsReducer from "../reducers/productsSlice";
 import categoriesReducer from "../reducers/categorySlice";
 import authSlice from "../reducers/authSlice";
 import messageSlice from "../reducers/messageSlice";
-import favoriteSlice from "../reducers/favoriteSlice";
 import cartSlice from "../reducers/cartSlice";
 import addressSlice from "../reducers/addressSlice";
 import orderSlice from "../reducers/orderSlice";
@@ -13,7 +12,6 @@ export const store = configureStore({
 		categories: categoriesReducer,
 		auth: authSlice,
 		message: messageSlice,
-		favorite: favoriteSlice,
 		cart: cartSlice,
 		address: addressSlice,
 		order: orderSlice,

@@ -10,10 +10,10 @@ import { CardMedia, Chip, IconButton, Rating } from "@mui/material";
 import { useState } from "react";
 import ProductI from "../../types/ProductI";
 import { useAppDispatch, useAppSelector } from "../../app/hooks";
-import { addFavorite, deleteFavorite } from "../../reducers/favoriteSlice";
 import { BaseImageUrl } from "../../utils/BaseImageUrl";
 import { addToCart, changeQuantity, selectCartItemByProductId, selectExistsInCart } from "../../reducers/cartSlice";
 import { gridColumnsTotalWidthSelector } from "@mui/x-data-grid";
+import { addFavorite, deleteFavorite } from "../../reducers/productsSlice";
 type ProductProps = {
 	product: ProductI;
 };
