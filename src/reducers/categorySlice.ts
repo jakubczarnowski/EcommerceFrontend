@@ -7,6 +7,7 @@ import CategoryI from "../types/CategoryI";
 import CategoryCreateI from "../types/CategoryCreateI";
 import { setMessage } from "./messageSlice";
 import CategoryEditI from "../types/CategoryEditI";
+import ParseCategories from "../utils/ParseCategories";
 
 export interface CategoryState {
 	categories: CategoryI | null;
@@ -70,6 +71,7 @@ export const categorySlice = createSlice({
 });
 
 export const selectCategories = (state: RootState) => state.categories.categories;
+export const selectCategoryById = (state: RootState, id: number) => ParseCategories(state.categories.categories || ({} as CategoryI)).find((val) => val.id === id);
 export const selectCategoryStatus = (state: RootState) => state.categories.status;
 export const selectCategoryError = (state: RootState) => state.categories.error;
 export default categorySlice.reducer;

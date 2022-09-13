@@ -8,6 +8,7 @@ const themeOptions = {
 			dark: "#787878",
 			gray: "#949ba7",
 			blue: "#373f50",
+			light: "#DAE1E7",
 		},
 		secondary: {
 			main: "#d23f57",

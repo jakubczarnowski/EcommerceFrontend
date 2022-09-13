@@ -12,7 +12,7 @@ import Menu from "@mui/material/Menu";
 import SearchIcon from "@mui/icons-material/Search";
 import AccountCircle from "@mui/icons-material/AccountCircle";
 import MoreIcon from "@mui/icons-material/MoreVert";
-import { AccountBox, AdminPanelSettings, HowToReg, Login, Logout, ShoppingCart } from "@mui/icons-material";
+import { AccountBox, AdminPanelSettings, HowToReg, Login, Logout, Search, ShoppingCart } from "@mui/icons-material";
 import CategoriesDropdown from "./CategoriesDropdown";
 import { Link, useNavigate } from "react-router-dom";
 import { logout, selectUser, selectUserIsLogged } from "../../reducers/authSlice";
@@ -21,8 +21,9 @@ import MessageDropdown from "../MessageDropdown";
 import { useState } from "react";
 import CartDrawer from "../cart/CartDrawer";
 import { selectCart, selectCartItemsLength } from "../../reducers/cartSlice";
-import { Button, Container } from "@mui/material";
+import { Button, Container, FormControl, OutlinedInput } from "@mui/material";
 import logo from "../../static/images/logo2.svg";
+import SearchField from "./SearchField";
 type Props = {
 	isAdmin: boolean;
 };
@@ -193,15 +194,17 @@ export default function Navbar({ isAdmin }: Props) {
 	);
 	return (
 		<>
-			<Box>
+			<Box sx={{ zIndex: "1203", position: "relative" }}>
 				<MessageDropdown />
 				<Box sx={{ height: "80px", backgroundColor: "primary.main" }}>
-					<Container maxWidth="lg" sx={{ border: "1px solid black", display: "flex", alignItems: "center", justifyContent: "space-between", gap: "16px", height: "100%" }}>
+					<Container maxWidth="lg" sx={{ display: "flex", alignItems: "center", justifyContent: "space-between", gap: "16px", height: "100%" }}>
 						<Button onClick={() => navigate("/")} component="div" sx={{ display: { xs: "none", sm: "flex" }, height: "100%" }}>
 							<img src={logo} alt="logo" style={{ objectFit: "scale-down", height: "100%" }} />
 						</Button>
 						<Box sx={{ flex: "1 1 0", display: "flex", alignItems: "center" }}>
-							<Box sx={{ maxWidth: "670px", marginX: "auto" }}></Box>
+							<Box sx={{ maxWidth: "670px", marginX: "auto", width: "100%" }}>
+								<SearchField />
+							</Box>
 						</Box>
 
 						<Box sx={{ display: { xs: "none", md: "flex" } }}>

@@ -1,5 +1,5 @@
 export default interface CategoryI {
-	id: string;
+	id: number;
 	categoryName: string;
 	createdAt: Date;
 	modifiedAt: Date;
