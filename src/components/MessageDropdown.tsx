@@ -22,7 +22,7 @@ const MessageDropdown = (props: Props) => {
 	}, [message]);
 
 	return (
-		<Box sx={{ width: "100%", marginTop: "5px", zIndex: "1202", position: "relative" }}>
+		<Box sx={{ width: "100%", zIndex: "1202", position: "relative" }}>
 			<Collapse in={open} timeout={"auto"} sx={{ mb: 2, paddingBottom: "0", marginBottom: "0" }}>
 				<Alert
 					severity={error ? "error" : "info"}

@@ -21,52 +21,11 @@ import MessageDropdown from "../MessageDropdown";
 import { useState } from "react";
 import CartDrawer from "../cart/CartDrawer";
 import { selectCart, selectCartItemsLength } from "../../reducers/cartSlice";
-
+import { Button, Container } from "@mui/material";
+import logo from "../../static/images/logo2.svg";
 type Props = {
 	isAdmin: boolean;
 };
-
-const Search = styled("div")(({ theme }) => ({
-	position: "relative",
-	borderRadius: "20px",
-	flexGrow: "1",
-	border: "1px solid " + alpha(theme.palette.primary.dark, 0.7),
-	backgroundColor: alpha(theme.palette.primary.dark, 0.1),
-	"&:hover": {
-		backgroundColor: alpha(theme.palette.primary.dark, 0.25),
-	},
-	marginRight: theme.spacing(2),
-	width: "100%",
-	[theme.breakpoints.up("sm")]: {
-		marginLeft: theme.spacing(3),
-		width: "auto",
-	},
-}));
-
-const SearchIconWrapper = styled("div")(({ theme }) => ({
-	padding: theme.spacing(0, 2),
-	height: "100%",
-	position: "absolute",
-	pointerEvents: "none",
-	display: "flex",
-	alignItems: "center",
-	justifyContent: "center",
-}));
-
-const StyledInputBase = styled(InputBase)(({ theme }) => ({
-	color: "inherit",
-	width: "100%",
-	"& .MuiInputBase-input": {
-		padding: theme.spacing(1, 1, 1, 0),
-		// vertical padding + font size from searchIcon
-		paddingLeft: `calc(1em + ${theme.spacing(4)})`,
-		transition: theme.transitions.create("width"),
-		width: "100%",
-		[theme.breakpoints.up("md")]: {
-			width: "20ch",
-		},
-	},
-}));
 
 export default function Navbar({ isAdmin }: Props) {
 	const navigate = useNavigate();
@@ -234,20 +193,17 @@ export default function Navbar({ isAdmin }: Props) {
 	);
 	return (
 		<>
-			<Box className="navbar" sx={{ flexGrow: 1 }}>
+			<Box>
 				<MessageDropdown />
-				<AppBar position="sticky" sx={{ paddingX: "10%;", margin: 0, zIndex: "1201" }}>
-					<Toolbar>
-						<Typography onClick={() => navigate("/")} variant="h6" noWrap component="div" sx={{ display: { xs: "none", sm: "block" } }}>
-							Exclusive
-						</Typography>
-						<Search>
-							<SearchIconWrapper>
-								<SearchIcon />
-							</SearchIconWrapper>
-							<StyledInputBase placeholder="Search…" inputProps={{ "aria-label": "search" }} />
-						</Search>
-						<Box sx={{ flexGrow: 1 }} />
+				<Box sx={{ height: "80px", backgroundColor: "primary.main" }}>
+					<Container maxWidth="lg" sx={{ border: "1px solid black", display: "flex", alignItems: "center", justifyContent: "space-between", gap: "16px", height: "100%" }}>
+						<Button onClick={() => navigate("/")} component="div" sx={{ display: { xs: "none", sm: "flex" }, height: "100%" }}>
+							<img src={logo} alt="logo" style={{ objectFit: "scale-down", height: "100%" }} />
+						</Button>
+						<Box sx={{ flex: "1 1 0", display: "flex", alignItems: "center" }}>
+							<Box sx={{ maxWidth: "670px", marginX: "auto" }}></Box>
+						</Box>
+
 						<Box sx={{ display: { xs: "none", md: "flex" } }}>
 							<IconButton onClick={handleLoginMenuOpen} size="large" aria-label="account of current user" aria-haspopup="true" color="inherit">
 								<AccountCircle />
@@ -263,8 +219,9 @@ export default function Navbar({ isAdmin }: Props) {
 								<MoreIcon />
 							</IconButton>
 						</Box>
-					</Toolbar>
-				</AppBar>
+					</Container>
+				</Box>
+
 				{renderMobileMenu}
 				{renderLoginMenu}
 			</Box>
