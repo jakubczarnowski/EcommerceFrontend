@@ -2,7 +2,7 @@ import CategoryI from "../types/CategoryI";
 
 export default function ParseCategories(categories: CategoryI) {
 	let newCategories: CategoryI[] = [];
-	let category = categories.categoryChildren;
+	let category = categories?.categoryChildren || [];
 	if (category.length == 0) {
 		return [categories];
 	}

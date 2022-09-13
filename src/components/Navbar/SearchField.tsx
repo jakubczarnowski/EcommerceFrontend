@@ -3,8 +3,9 @@ import { Box, Button, IconButton, Input, Menu, MenuItem, TextField, Typography }
 import React, { useState } from "react";
 import { useAppSelector } from "../../app/hooks";
 import { RootState } from "../../app/store";
-import { selectCategories, selectCategoryById } from "../../reducers/categorySlice";
+import { selectCategories, selectCategoryById, selectCategoryStatus } from "../../reducers/categorySlice";
 import CategoryI from "../../types/CategoryI";
+import { FULLFILLED, IDLE } from "../../utils/states";
 
 type Props = {};
 
@@ -13,7 +14,7 @@ const SearchField = (props: Props) => {
 	const categoriesDropdownOpen = Boolean(categoriesAnchor);
 	const [categoryId, setCategoryId] = React.useState(0);
 	const categories = useAppSelector(selectCategories) || ({} as CategoryI);
-	const selectedCategory = useAppSelector((state: RootState) => selectCategoryById(state, categoryId));
+	const selectedCategory = useAppSelector((state: RootState) => selectCategoryById(state, categoryId)) || ({} as CategoryI);
 	const handleDropdownOpen = (event: React.MouseEvent<HTMLElement>) => {
 		setCategoriesAnchor(event.currentTarget);
 	};
@@ -35,10 +36,15 @@ const SearchField = (props: Props) => {
 			open={categoriesDropdownOpen}
 			onClose={handleDropdownClose}
 		>
-			<MenuItem onClick={() => setCategoryId(0)}>
+			<MenuItem
+				onClick={() => {
+					setCategoryId(0);
+					handleDropdownClose();
+				}}
+			>
 				<Typography variant="body1">All Categories</Typography>
 			</MenuItem>
-			{categories.categoryChildren.map((category) => (
+			{categories.categoryChildren?.map((category) => (
 				<MenuItem
 					key={category.id}
 					onClick={() => {
@@ -48,7 +54,7 @@ const SearchField = (props: Props) => {
 				>
 					<Typography variant="body1">{category.categoryName}</Typography>
 				</MenuItem>
-			))}
+			)) || ""}
 		</Menu>
 	);
 	return (

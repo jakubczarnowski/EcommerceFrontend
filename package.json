@@ -22,6 +22,7 @@
 		"material-ui-popup-state": "^4.0.1",
 		"react": "^18.2.0",
 		"react-dom": "^18.2.0",
+		"react-image-gallery": "^1.2.9",
 		"react-redux": "^8.0.2",
 		"react-router": "^6.3.0",
 		"react-router-dom": "^6.3.0",
@@ -53,5 +54,8 @@
 			"last 1 firefox version",
 			"last 1 safari version"
 		]
+	},
+	"devDependencies": {
+		"@types/react-image-gallery": "^1.0.5"
 	}
 }

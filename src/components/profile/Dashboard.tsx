@@ -13,14 +13,16 @@ const Dashboard = (props: Props) => {
 		setSelectedPage(name);
 	};
 	const orderCount = useAppDispatch();
-	const boxStyle = { display: "flex", alignItems: "center", marginY: "1rem", borderLeft: selectedPage == "wishlist" ? "4px solid #d23f57" : "", "&:hover": { borderLeft: "4px solid #d23f57" } };
+	const boxStyle = (val: string) => {
+		return { display: "flex", alignItems: "center", marginY: "1rem", borderLeft: selectedPage == `${val}` ? "4px solid #d23f57" : "", "&:hover": { borderLeft: "4px solid #d23f57" } };
+	};
 	return (
 		<Paper sx={{ padding: "24px" }} elevation={1}>
 			<Typography color="primary.gray" variant="body1" sx={{ fontSize: "14px", marginBottom: "10px" }}>
 				DASHBOARD
 			</Typography>
 			<Link to="/profile/orders" onClick={() => handleClick("orders")}>
-				<Box sx={boxStyle}>
+				<Box sx={boxStyle("orders")}>
 					<ShoppingBagOutlined color={selectedPage == "orders" ? "secondary" : "inherit"} fontSize="small" />
 					<Typography variant="body2" sx={{ color: selectedPage == "orders" ? "secondary.main" : "black", "&:hover": { color: "secondary.main" } }}>
 						Orders
@@ -31,7 +33,7 @@ const Dashboard = (props: Props) => {
 				</Box>
 			</Link>
 			<Link to="/profile/wishlist" onClick={() => handleClick("wishlist")}>
-				<Box sx={boxStyle}>
+				<Box sx={boxStyle("wishlist")}>
 					<ShoppingBagOutlined color={selectedPage == "wishlist" ? "secondary" : "inherit"} fontSize="small" />
 					<Typography variant="body2" sx={{ color: selectedPage == "wishlist" ? "secondary.main" : "black", "&:hover": { color: "secondary.main" } }}>
 						Wishlist
@@ -45,7 +47,7 @@ const Dashboard = (props: Props) => {
 				DASHBOARD
 			</Typography>
 			<Link to="/profile" onClick={() => handleClick("profile")}>
-				<Box sx={boxStyle}>
+				<Box sx={boxStyle("profile")}>
 					<Person color={selectedPage == "profile" ? "secondary" : "inherit"} fontSize="small" />
 					<Typography variant="body2" sx={{ color: selectedPage == "profile" ? "secondary.main" : "black", "&:hover": { color: "secondary.main" } }}>
 						Profile info
@@ -53,7 +55,7 @@ const Dashboard = (props: Props) => {
 				</Box>
 			</Link>
 			<Link to="/profile/addresses" onClick={() => handleClick("addresses")}>
-				<Box sx={boxStyle}>
+				<Box sx={boxStyle("addresses")}>
 					<LocationOn color={selectedPage == "addresses" ? "secondary" : "inherit"} fontSize="small" />
 					<Typography variant="body2" sx={{ color: selectedPage == "addresses" ? "secondary.main" : "black", "&:hover": { color: "secondary.main" } }}>
 						Addresses
