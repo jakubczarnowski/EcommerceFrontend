@@ -5,7 +5,7 @@ import { selectCategories } from "../../reducers/categorySlice";
 import { createProduct, uploadImage } from "../../reducers/productsSlice";
 import CategoryI from "../../types/CategoryI";
 import ProductCreateI from "../../types/ProductCreateI";
-import { BaseImageUrl } from "../../utils/BaseImageUrl";
+import { BASE_IMAGE_URL } from "../../utils/BaseImageUrl";
 import ParseCategories from "../../utils/ParseCategories";
 
 type Props = {};
@@ -103,7 +103,7 @@ const AddProduct = (props: Props) => {
 			<ImageList sx={{ width: 500, height: 450 }} cols={3} rowHeight={164}>
 				{(product.imagesUrl ?? []).map((item) => (
 					<ImageListItem>
-						<img src={BaseImageUrl + item} alt={"pic"} loading="lazy" />
+						<img src={BASE_IMAGE_URL + item} alt={"pic"} loading="lazy" />
 					</ImageListItem>
 				))}
 			</ImageList>

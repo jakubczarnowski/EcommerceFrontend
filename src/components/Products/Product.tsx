@@ -10,10 +10,11 @@ import { CardMedia, Chip, IconButton, Rating } from "@mui/material";
 import { useState } from "react";
 import ProductI from "../../types/ProductI";
 import { useAppDispatch, useAppSelector } from "../../app/hooks";
-import { BaseImageUrl } from "../../utils/BaseImageUrl";
+import { BASE_IMAGE_URL } from "../../utils/BaseImageUrl";
 import { addToCart, changeQuantity, selectCartItemByProductId, selectExistsInCart } from "../../reducers/cartSlice";
 import { gridColumnsTotalWidthSelector } from "@mui/x-data-grid";
 import { addFavorite, deleteFavorite } from "../../reducers/productsSlice";
+import { Link } from "react-router-dom";
 type ProductProps = {
 	product: ProductI;
 };
@@ -43,13 +44,18 @@ const Product = ({ product }: ProductProps) => {
 				<IconButton sx={{ padding: "5px", paddingBottom: "0", top: "7px", right: "15px", position: "absolute" }} aria-label="favorite" onClick={(e) => handleClickFavorite(e)}>
 					{favorite ? <Favorite color="secondary" /> : <FavoriteBorder />}
 				</IconButton>
-				<img style={{ objectFit: "contain", width: "100%", height: "100%", aspectRatio: "1/1" }} src={BaseImageUrl + product.imagesUrl[0]} alt="product" />
+				<Link to={"/product/" + product.slug}>
+					<img style={{ objectFit: "contain", width: "100%", height: "100%", aspectRatio: "1/1" }} src={BASE_IMAGE_URL + product.imagesUrl[0]} alt="product" />
+				</Link>
 			</Box>
 			<Box sx={{ display: "flex", padding: "1rem" }}>
 				<Box sx={{ display: "flex", flexDirection: "column", minWidth: "0px", justifyContent: "left", marginRight: "auto" }}>
-					<Typography sx={{ marginY: "5px", fontSize: "14px", fontWeight: "500" }} mt={2} variant="h3" color="text.primary">
-						{product.name}
-					</Typography>
+					<Link to={"/product/" + product.slug}>
+						<Typography sx={{ marginY: "5px", fontSize: "14px", fontWeight: "500" }} mt={2} variant="h3" color="text.primary">
+							{product.name}
+						</Typography>
+					</Link>
+
 					<Rating size="small" name="read-only" sx={{ marginY: "5px" }} value={4} readOnly />
 					<Typography variant="subtitle1" sx={{ fontSize: 14, color: "secondary.main", marginY: "5px", fontWeight: "600" }}>
 						${product.price}

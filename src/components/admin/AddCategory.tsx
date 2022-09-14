@@ -6,7 +6,7 @@ import { createProduct, uploadImage } from "../../reducers/productsSlice";
 import CategoryCreateI from "../../types/CategoryCreateI";
 import CategoryI from "../../types/CategoryI";
 import ProductCreateI from "../../types/ProductCreateI";
-import { BaseImageUrl } from "../../utils/BaseImageUrl";
+import { BASE_IMAGE_URL } from "../../utils/BaseImageUrl";
 import ParseCategories from "../../utils/ParseCategories";
 
 type Props = {};

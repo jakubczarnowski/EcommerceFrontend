@@ -5,7 +5,7 @@ import { Link } from "react-router-dom";
 import { useAppDispatch } from "../../app/hooks";
 import { changeQuantity } from "../../reducers/cartSlice";
 import ProductI from "../../types/ProductI";
-import { BaseImageUrl } from "../../utils/BaseImageUrl";
+import { BASE_IMAGE_URL } from "../../utils/BaseImageUrl";
 
 type Props = {
 	product: ProductI;
@@ -18,7 +18,7 @@ const CartPageItem = ({ product, quantity, cartItemId }: Props) => {
 	return (
 		<Paper elevation={4} sx={{ display: "flex", borderRadius: "10px", marginY: "20px", width: "100%", paddingX: "10px" }}>
 			<Avatar sx={{ width: "156px", height: "156px", borderRadius: "10px" }} variant="square">
-				<img style={{ width: "156px", height: "156px", objectFit: "cover", aspectRatio: "1/1" }} src={BaseImageUrl + product.imagesUrl[0]} alt={product.name} />
+				<img style={{ width: "156px", height: "156px", objectFit: "cover", aspectRatio: "1/1" }} src={BASE_IMAGE_URL + product.imagesUrl[0]} alt={product.name} />
 			</Avatar>
 			<Box sx={{ display: "flex", flexDirection: "column", rowGap: "16px", marginY: "16px" }}>
 				<Link to={"/product/" + product.slug}>

@@ -26,7 +26,11 @@ export const fetchProducts = createAsyncThunk("products/fetchProducts", async (p
 	});
 	return response.data;
 });
-
+export const fetchProductBySlug = createAsyncThunk("products/fetchProductBySlug", async (slug: string) => {
+	const response = await axiosInstance.get("/products/slug/" + slug);
+	// obrzydliwe
+	return response.data;
+});
 export const createProduct = createAsyncThunk("products/createProduct", async (product: ProductCreateI, thunkAPI) => {
 	try {
 		const response = await axiosInstance.post("/products", JSON.stringify(product));
@@ -105,6 +109,20 @@ export const productSlice = createSlice({
 				state.products = action.payload;
 			})
 			.addCase(fetchProducts.rejected, (state, action) => {
+				state.status = FAILED;
+				console.log(action);
+				state.error = action.error.message;
+			})
+			.addCase(fetchProductBySlug.pending, (state) => {
+				state.status = LOADING;
+			})
+			.addCase(fetchProductBySlug.fulfilled, (state, action) => {
+				state.status = FULLFILLED;
+				if (!state.products.some((p) => p.id === action.payload.id)) {
+					state.products.push(action.payload);
+				}
+			})
+			.addCase(fetchProductBySlug.rejected, (state, action) => {
 				state.status = FAILED;
 				console.log(action);
 				state.error = action.error.message;
