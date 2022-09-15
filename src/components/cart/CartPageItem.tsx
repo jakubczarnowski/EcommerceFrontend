@@ -34,19 +34,19 @@ const CartPageItem = ({ product, quantity, cartItemId }: Props) => {
 					<Typography sx={{ color: "secondary.main", fontWeight: "450", fontSize: "15px" }}>${product.price * quantity}</Typography>
 				</Box>
 				<Box sx={{ display: "flex", flexDirection: "row", alignItems: "center", paddingBottom: "0px" }}>
-					<Button sx={{ border: "1px solid", aspectRatio: "1/1", marginX: "10px", minWidth: "0px", minHeight: "0px", padding: "5px" }} color="secondary" disabled={quantity === 1} onClick={() => dispatch(changeQuantity({ id: cartItemId, productId: product.id, quantity: quantity - 1 }))}>
+					<Button sx={{ border: "1px solid", aspectRatio: "1/1", marginX: "10px", minWidth: "0px", minHeight: "0px", padding: "5px" }} color="secondary" disabled={quantity === 1} onClick={() => dispatch(changeQuantity({ id: cartItemId, quantity: quantity - 1 }))}>
 						<Remove fontSize="small" color={quantity === 1 ? "disabled" : "secondary"} />
 					</Button>
 					<Typography variant="subtitle2" sx={{ fontSize: "15px" }}>
 						{quantity}
 					</Typography>
 
-					<Button sx={{ border: "1px solid", aspectRatio: "1/1", marginX: "10px", minWidth: "0px", minHeight: "0px", padding: "5px" }} color="secondary" onClick={() => dispatch(changeQuantity({ id: cartItemId, productId: product.id, quantity: quantity + 1 }))}>
+					<Button sx={{ border: "1px solid", aspectRatio: "1/1", marginX: "10px", minWidth: "0px", minHeight: "0px", padding: "5px" }} color="secondary" onClick={() => dispatch(changeQuantity({ id: cartItemId, quantity: quantity + 1 }))}>
 						<Add fontSize="small" color="secondary" />
 					</Button>
 				</Box>
 			</Box>
-			<IconButton sx={{ marginLeft: "auto", marginBottom: "auto" }} onClick={() => dispatch(changeQuantity({ id: cartItemId, productId: product.id, quantity: 0 }))} color="secondary">
+			<IconButton sx={{ marginLeft: "auto", marginBottom: "auto" }} onClick={() => dispatch(changeQuantity({ id: cartItemId, quantity: 0 }))} color="secondary">
 				<Clear color="disabled" />
 			</IconButton>
 		</Paper>

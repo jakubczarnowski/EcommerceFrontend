@@ -63,19 +63,19 @@ const Product = ({ product }: ProductProps) => {
 				</Box>
 				{existsInCart ? (
 					<Box sx={{ display: "flex", flexDirection: "column-reverse", alignItems: "center", justifyContent: "space-between" }}>
-						<Button sx={{ aspectRatio: "1/1", margin: 0, minWidth: "0px", minHeight: "0px", padding: "3px" }} size="small" variant="outlined" color="secondary" onClick={() => dispatch(changeQuantity({ id: cartItem.id, productId: product.id, quantity: cartItem.quantity + 1 }))}>
+						<Button sx={{ aspectRatio: "1/1", margin: 0, minWidth: "0px", minHeight: "0px", padding: "3px" }} size="small" variant="outlined" color="secondary" onClick={() => dispatch(changeQuantity({ id: cartItem.id, quantity: cartItem.quantity + 1 }))}>
 							<Add fontSize="small" color="secondary" />
 						</Button>
 						<Typography variant="subtitle2" sx={{ fontSize: "15px" }}>
 							{cartItem.quantity}
 						</Typography>
-						<Button sx={{ aspectRatio: "1/1", margin: 0, minWidth: "0px", minHeight: "0px", padding: "3px" }} size="small" variant="outlined" color="secondary" onClick={() => dispatch(changeQuantity({ id: cartItem.id, productId: product.id, quantity: cartItem.quantity - 1 }))}>
+						<Button sx={{ aspectRatio: "1/1", margin: 0, minWidth: "0px", minHeight: "0px", padding: "3px" }} size="small" variant="outlined" color="secondary" onClick={() => dispatch(changeQuantity({ id: cartItem.id, quantity: cartItem.quantity - 1 }))}>
 							<Remove fontSize="small" />
 						</Button>
 					</Box>
 				) : (
 					<Box sx={{ display: "flex", flexDirection: "column-reverse", alignItems: "center", justifyContent: "flex-start" }}>
-						<Button sx={{ aspectRatio: "1/1", margin: 0, minWidth: "0px", minHeight: "0px", padding: "3px" }} variant="outlined" size="small" color="secondary" onClick={() => dispatch(addToCart({ id: 0, productId: product.id, quantity: 1 }))}>
+						<Button sx={{ aspectRatio: "1/1", margin: 0, minWidth: "0px", minHeight: "0px", padding: "3px" }} variant="outlined" size="small" color="secondary" onClick={() => dispatch(addToCart({ productId: product.id, quantity: 1 }))}>
 							<Add fontSize="small" color="secondary" />
 						</Button>
 					</Box>

@@ -64,7 +64,7 @@ const SearchField = (props: Props) => {
 				console.log(e);
 			}}
 			component="form"
-			sx={{ border: "1px solid #DAE1E7", width: "100%", height: "44px", display: "flex", flexDirection: "row", borderRadius: "20px", padding: "2px", alignItems: "center", gap: "5px", overflow: "hidden" }}
+			sx={{ border: "1px solid", borderColor: "primary.light", width: "100%", height: "44px", display: "flex", flexDirection: "row", borderRadius: "20px", padding: "2px", alignItems: "center", gap: "5px", overflow: "hidden" }}
 		>
 			<Search sx={{ marginX: "10px" }} />
 			<TextField placeholder="Search..." sx={{ width: "100%" }} variant="standard" focused></TextField>

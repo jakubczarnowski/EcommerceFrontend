@@ -11,6 +11,7 @@ import CartI from "../types/CartI";
 import AddToCartI from "../types/AddToCartI";
 import { queryAllByAltText } from "@testing-library/react";
 import { stat } from "fs";
+import ChangeQuantityI from "../types/ChangeQuantityI";
 
 interface CartState {
 	cart: CartI;
@@ -41,7 +42,7 @@ export const addToCart = createAsyncThunk("cart/addToCart", async (data: AddToCa
 		return thunkAPI.rejectWithValue(e.response.message);
 	}
 });
-export const changeQuantity = createAsyncThunk("cart/changeQuantity", async (data: AddToCartI, thunkAPI) => {
+export const changeQuantity = createAsyncThunk("cart/changeQuantity", async (data: ChangeQuantityI, thunkAPI) => {
 	try {
 		const response = await axiosInstance.put(`/cart/`, data);
 		console.log(response);
