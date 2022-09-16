@@ -13,7 +13,6 @@ import SearchIcon from "@mui/icons-material/Search";
 import AccountCircle from "@mui/icons-material/AccountCircle";
 import MoreIcon from "@mui/icons-material/MoreVert";
 import { AccountBox, AdminPanelSettings, HowToReg, Login, Logout, Search, ShoppingCart } from "@mui/icons-material";
-import CategoriesDropdown from "./CategoriesDropdown";
 import { Link, useNavigate } from "react-router-dom";
 import { logout, selectUser, selectUserIsLogged } from "../../reducers/authSlice";
 import { useAppDispatch, useAppSelector } from "../../app/hooks";
@@ -39,7 +38,6 @@ export default function Navbar({ isAdmin }: Props) {
 	const mobileMenuId = "primary-search-account-menu-mobile";
 	const [mobileMoreAnchorEl, setMobileMoreAnchorEl] = React.useState<null | HTMLElement>(null);
 	const loggedIn = useAppSelector(selectUserIsLogged);
-	const user = useAppSelector(selectUser);
 	const cartItemsLength = useAppSelector(selectCartItemsLength);
 	const isMobileMenuOpen = Boolean(mobileMoreAnchorEl);
 	const dispatch = useAppDispatch();
