@@ -1,4 +1,5 @@
 import Category from "./CategoryI";
+import Review from "./Review";
 
 export default interface ProductI {
 	id: number;
@@ -9,6 +10,9 @@ export default interface ProductI {
 	description: string;
 	price: number;
 	categoryId: number;
+	rating: number;
+	ratingCount: number;
+	reviews?: Review[];
 	favorite: boolean;
 	slug: string;
 }

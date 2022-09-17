@@ -1,13 +1,14 @@
-import { createAsyncThunk, createSlice, PayloadAction } from "@reduxjs/toolkit";
-import { RootState, AppThunk } from "../app/store";
+import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
+import axios from "axios";
+import axiosInstance from "../app/axiosInstance";
+import { RootState } from "../app/store";
+import ProductCreateI from "../types/ProductCreateI";
 import ProductI from "../types/ProductI";
 import ProductParamsI from "../types/ProductParamI";
-import axiosInstance from "../app/axiosInstance";
-import { FAILED, FULLFILLED, IDLE, LOADING } from "../utils/states";
-import { setMessage } from "./messageSlice";
-import ProductCreateI from "../types/ProductCreateI";
-import axios from "axios";
+import ReviewCreateI from "../types/ReviewCreateI";
 import { BASE_URL } from "../utils/BaseUrl";
+import { FAILED, FULLFILLED, LOADING } from "../utils/states";
+import { setMessage } from "./messageSlice";
 
 export interface ProductState {
 	products: ProductI[];
@@ -95,6 +96,17 @@ export const deleteFavorite = createAsyncThunk("favorite/deleteFavorite", async 
 		return thunkAPI.rejectWithValue(e.response.message);
 	}
 });
+
+export const addReview = createAsyncThunk("review/addReview", async (params: ReviewCreateI, thunkAPI) => {
+	try {
+		const response = await axiosInstance.post("/reviews/", JSON.stringify(params));
+		return response;
+	} catch (e: any) {
+		thunkAPI.dispatch(setMessage({ message: "Failed to add review", error: true }));
+		return thunkAPI.rejectWithValue(e.response.message);
+	}
+});
+
 export const productSlice = createSlice({
 	name: "products",
 	initialState,
@@ -118,7 +130,10 @@ export const productSlice = createSlice({
 			})
 			.addCase(fetchProductBySlug.fulfilled, (state, action) => {
 				state.status = FULLFILLED;
-				if (!state.products.some((p) => p.id === action.payload.id)) {
+				const index = state.products.findIndex((p) => p.id === action.payload.id);
+				if (index != -1) {
+					state.products[index] = action.payload;
+				} else {
 					state.products.push(action.payload);
 				}
 			})

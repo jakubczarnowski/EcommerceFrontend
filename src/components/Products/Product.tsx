@@ -56,7 +56,7 @@ const Product = ({ product }: ProductProps) => {
 						</Typography>
 					</Link>
 
-					<Rating size="small" name="read-only" sx={{ marginY: "5px" }} value={4} readOnly />
+					<Rating size="small" name="read-only" sx={{ marginY: "5px" }} value={product.rating} readOnly precision={0.25} />
 					<Typography variant="subtitle1" sx={{ fontSize: 14, color: "secondary.main", marginY: "5px", fontWeight: "600" }}>
 						${product.price}
 					</Typography>

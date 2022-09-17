@@ -1,11 +1,20 @@
-import { Box, Button, Input, OutlinedInput, Rating, TextareaAutosize, Typography } from "@mui/material";
-import React, { useState } from "react";
+import { Box, Button, OutlinedInput, Rating, Typography } from "@mui/material";
+import { useState } from "react";
 
-type Props = {};
+import { useAppDispatch } from "../../app/hooks";
+import { addReview } from "../../reducers/productsSlice";
 
-const ReviewForm = (props: Props) => {
+type Props = {
+	productId: number;
+};
+
+const ReviewForm = ({ productId }: Props) => {
 	const [message, setMessage] = useState("");
 	const [rating, setRating] = useState(0);
+	const dispatch = useAppDispatch();
+	const handleSubmit = () => {
+		dispatch(addReview({ productId: productId, review: message, rating: rating }));
+	};
 	return (
 		<Box sx={{ width: "100%", display: "flex", flexDirection: "column", marginTop: "30px", gap: "15px" }}>
 			<Typography sx={{ fontSize: "28px", fontWeight: "400" }}>Write a review</Typography>
@@ -15,9 +24,9 @@ const ReviewForm = (props: Props) => {
 			</Box>
 			<Box sx={{ display: "flex", flexDirection: "column" }}>
 				<Typography sx={{ fontSize: "16px", color: "primary.blue" }}>Your Review:</Typography>
-				<OutlinedInput color="secondary" multiline placeholder="Write a review here..." rows={4} />
+				<OutlinedInput value={message} onChange={(e) => setMessage(e.target.value)} color="secondary" multiline placeholder="Write a review here..." rows={4} />
 			</Box>
-			<Button sx={{ width: "80px", marginY: "10px " }} color="secondary" variant="contained">
+			<Button onClick={handleSubmit} sx={{ width: "80px", marginY: "10px " }} color="secondary" variant="contained">
 				Submit
 			</Button>
 		</Box>

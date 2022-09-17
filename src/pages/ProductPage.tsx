@@ -32,7 +32,7 @@ function ProductPage() {
 	const existsInCart = cartItem !== undefined;
 	return (
 		<Box sx={{ width: "100%", height: "auto", position: "sticky", backgroundColor: "primary.main", overflow: "hidden" }}>
-			<Grid container maxWidth="lg" columns={12} sx={{ paddingTop: "24px", marginBottom: "16px" }}>
+			<Grid container maxWidth="lg" columns={12} sx={{ paddingTop: "24px", marginBottom: "16px", marginX: " auto" }}>
 				<Grid item xs={12} md={6} sx={{ paddingX: "24px", alignItems: "center", flexDirection: "column", display: "flex" }}>
 					<Box>
 						<img src={BASE_IMAGE_URL + product.imagesUrl[selectedProductUrl]} style={{ objectFit: "contain", height: "350px", width: "350px" }} alt={"Main Image"} />
@@ -45,14 +45,14 @@ function ProductPage() {
 						</Box>
 					</Box>
 				</Grid>
-				<Grid item xs={12} md={6}>
+				<Grid item xs={12} md={6} sx={{ paddingLeft: "10px" }}>
 					<Typography variant="h1" sx={{ fontSize: "30px", fontWeight: "600", marginBottom: "20px" }}>
 						{product.name}
 					</Typography>
 					<Box sx={{ display: "flex", flexDirection: "row", alignItems: "center", marginBottom: "20px" }}>
 						<span>Ratings:</span>
-						<Rating value={3} readOnly size="small" sx={{ marginX: "5px" }} />
-						<span>(19)</span>
+						<Rating value={product.rating} readOnly size="small" sx={{ marginX: "5px" }} precision={0.25} />
+						<span>({product.ratingCount})</span>
 					</Box>
 					<Box sx={{ marginBottom: "20px" }}>
 						<Typography variant="h2" sx={{ fontSize: "25px", fontWeight: "600", color: "secondary.main", marginBottom: "15x" }}>
@@ -86,7 +86,7 @@ function ProductPage() {
 				<Box sx={{ borderBottom: 1, borderColor: "divider" }}>
 					<Tabs indicatorColor="secondary" textColor="secondary" value={tabValue} onChange={handleChange} aria-label="basic tabs example">
 						<Tab label="Description" sx={{ textTransform: "none" }} id="description" aria-controls="description" />
-						<Tab label="Reviews (19)" sx={{ textTransform: "none" }} id="review" aria-controls="review" />
+						<Tab label={`Reviews (${product.ratingCount})`} sx={{ textTransform: "none" }} id="review" aria-controls="review" />
 					</Tabs>
 				</Box>
 				<Box id="description" aria-labelledby={`description`} hidden={tabValue !== 0} sx={{ margin: "16px" }}>
@@ -100,9 +100,10 @@ function ProductPage() {
 					<Typography variant="body2">Brand: Beats Model: S450 Wireless Bluetooth Headset FM Frequency Response: 87.5 – 108 MHz Feature: FM Radio, Card Supported (Micro SD / TF) Made in China</Typography>
 				</Box>
 				<Box id="review" aria-labelledby={`review`} hidden={tabValue !== 1} sx={{ margin: "20px" }}>
-					<Review name="John Doe" rating={3} timePosted={new Date()} message={"Japierdole ale chujowe nie moge kurwa wytrzymac z tym syfem jebanym tnie sie jak skurwysyn no ja pierdole nie wytrzymam kurwa"} />
-					<Review name="John Doe" rating={3} timePosted={new Date()} message={"Japierdole ale chujowe nie moge kurwa wytrzymac z tym syfem jebanym tnie sie jak skurwysyn no ja pierdole nie wytrzymam kurwa"} />
-					<ReviewForm />
+					{product?.reviews?.map((review) => (
+						<Review name={review.name} rating={review.rating} timePosted={review.postDate} message={review.review} />
+					))}
+					<ReviewForm productId={product.id} />
 				</Box>
 			</Container>
 		</Box>
