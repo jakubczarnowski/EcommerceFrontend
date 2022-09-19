@@ -14,6 +14,8 @@ const ReviewForm = ({ productId }: Props) => {
 	const dispatch = useAppDispatch();
 	const handleSubmit = () => {
 		dispatch(addReview({ productId: productId, review: message, rating: rating }));
+		setMessage("");
+		setRating(0);
 	};
 	return (
 		<Box sx={{ width: "100%", display: "flex", flexDirection: "column", marginTop: "30px", gap: "15px" }}>

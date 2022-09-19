@@ -1,11 +1,11 @@
 import axios from "axios";
 import { BASE_URL } from "../utils/BaseUrl";
-import authHeader from "./authHeader";
+import TokenService from "./tokenService";
 
 const axiosInstance = axios.create({
 	baseURL: BASE_URL,
 	headers: {
-		Authorization: authHeader(),
+		Authorization: TokenService.getAccessToken(),
 		"Content-Type": "application/json",
 	},
 	validateStatus: (status) => status >= 200 && status <= 302,
@@ -13,7 +13,7 @@ const axiosInstance = axios.create({
 
 axiosInstance.interceptors.request.use(
 	(config: any) => {
-		const token = authHeader();
+		const token = TokenService.getAccessToken();
 		if (token) {
 			config.headers.Authorization = token;
 		} else {
@@ -24,5 +24,34 @@ axiosInstance.interceptors.request.use(
 
 	(error) => Promise.reject(error)
 );
+axiosInstance.interceptors.response.use(
+	(res: any) => {
+		return res;
+	},
+	async (err: any) => {
+		const originalConfig = err.config;
 
+		if (originalConfig.url !== "/auth/signin" && err.response) {
+			// Access Token was expired
+			if (err.response.status === 401 && !originalConfig._retry) {
+				originalConfig._retry = true;
+
+				try {
+					const rs = await axiosInstance.post("/auth/refreshtoken", {
+						refreshToken: TokenService.getRefreshToken(),
+					});
+
+					const { accessToken } = rs.data;
+					TokenService.updateAccessToken(accessToken);
+
+					return axiosInstance(originalConfig);
+				} catch (_error) {
+					return Promise.reject(_error);
+				}
+			}
+		}
+
+		return Promise.reject(err);
+	}
+);
 export default axiosInstance;

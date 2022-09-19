@@ -101,7 +101,7 @@ function ProductPage() {
 				</Box>
 				<Box id="review" aria-labelledby={`review`} hidden={tabValue !== 1} sx={{ margin: "20px" }}>
 					{product?.reviews?.map((review) => (
-						<Review name={review.name} rating={review.rating} timePosted={review.postDate} message={review.review} />
+						<Review key={review.id} name={review.name} rating={review.rating} timePosted={review.postDate} message={review.review} />
 					))}
 					<ReviewForm productId={product.id} />
 				</Box>
