@@ -12,8 +12,8 @@ function getRefreshToken() {
 	const userData = localStorage.getItem("user");
 	if (typeof userData === "string" && userData != "") {
 		const user = JSON.parse(userData);
-		if (user && user.accessToken) {
-			return user.accessToken;
+		if (user && user.refreshToken) {
+			return user.refreshToken;
 		}
 	}
 	return "";

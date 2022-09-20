@@ -37,9 +37,12 @@ axiosInstance.interceptors.response.use(
 				originalConfig._retry = true;
 
 				try {
-					const rs = await axiosInstance.post("/auth/refreshtoken", {
-						refreshToken: TokenService.getRefreshToken(),
-					});
+					const rs = await axiosInstance.post(
+						"/auth/refreshtoken",
+						JSON.stringify({
+							refreshToken: TokenService.getRefreshToken(),
+						})
+					);
 
 					const { accessToken } = rs.data;
 					TokenService.updateAccessToken(accessToken);
