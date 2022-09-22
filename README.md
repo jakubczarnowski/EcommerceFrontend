@@ -1,3 +1,17 @@
+# Ecommerce Application
+Tech stack:
+-TypeScript
+-Redux
+-React Router
+-Material Ui
+
+# Disclaimer
+Used a lot of inline styling, went too deep into the project realizing it might not be the most efficient option;
+Quite a large project, took too much of my time, to be reviewed tho;
+
+# Status
+In Progress
+
 # Getting Started with Create React App
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app), using the [Redux](https://redux.js.org/) and [Redux Toolkit](https://redux-toolkit.js.org/) TS template.
