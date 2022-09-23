@@ -1,5 +1,7 @@
 import axios from "axios";
+import { logout } from "../reducers/authSlice";
 import { BASE_URL } from "../utils/BaseUrl";
+import { useAppDispatch } from "./hooks";
 import TokenService from "./tokenService";
 
 const axiosInstance = axios.create({
@@ -31,7 +33,7 @@ axiosInstance.interceptors.response.use(
 	async (err: any) => {
 		const originalConfig = err.config;
 
-		if (originalConfig.url !== "/auth/signin" && err.response) {
+		if (originalConfig.url !== "/auth/signin" && err.response && localStorage.getItem("user") !== null) {
 			// Access Token was expired
 			if (err.response.status === 401 && !originalConfig._retry) {
 				originalConfig._retry = true;
@@ -49,6 +51,8 @@ axiosInstance.interceptors.response.use(
 
 					return axiosInstance(originalConfig);
 				} catch (_error) {
+					localStorage.removeItem("user");
+					delete axiosInstance.defaults.headers.common.Authorization;
 					return Promise.reject(_error);
 				}
 			}

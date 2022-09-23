@@ -1,3 +1,4 @@
+import { IDLE } from "./../utils/states";
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 import axios from "axios";
 import axiosInstance from "../app/axiosInstance";
@@ -129,7 +130,7 @@ export const productSlice = createSlice({
 				state.status = LOADING;
 			})
 			.addCase(fetchProductBySlug.fulfilled, (state, action) => {
-				state.status = FULLFILLED;
+				state.status = IDLE;
 				const index = state.products.findIndex((p) => p.id === action.payload.id);
 				if (index != -1) {
 					state.products[index] = action.payload;
