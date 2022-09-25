@@ -6,6 +6,8 @@ import messageSlice from "../reducers/messageSlice";
 import cartSlice from "../reducers/cartSlice";
 import addressSlice from "../reducers/addressSlice";
 import orderSlice from "../reducers/orderSlice";
+// import searchSlice from "../reducers/searchSlice";
+
 export const store = configureStore({
 	reducer: {
 		products: productsReducer,
