@@ -15,7 +15,7 @@ const SearchField = (props: Props) => {
 	const navigate = useNavigate();
 	const dispatch = useAppDispatch();
 
-	const [categoryId, setCategoryId] = useState(0);
+	const [categoryId, setCategoryId] = useState(1);
 	const categories = useAppSelector(selectCategories) || ({} as CategoryI);
 	// TODO optimize
 	const selectedCategory = useAppSelector((state: RootState) => selectCategoryById(state, categoryId)) || ({} as CategoryI);
@@ -58,7 +58,7 @@ const SearchField = (props: Props) => {
 		>
 			<MenuItem
 				onClick={() => {
-					setCategoryId(0);
+					setCategoryId(1);
 					handleDropdownClose();
 				}}
 			>
@@ -82,7 +82,7 @@ const SearchField = (props: Props) => {
 			<Search sx={{ marginX: "10px" }} />
 			<TextField value={search} onChange={(e) => setSearch(e.target.value)} placeholder="Search..." sx={{ width: "100%" }} variant="standard" focused></TextField>
 			<Button onClick={(e) => handleDropdownOpen(e)} sx={{ borderLeft: "1px solid #DAE1E7", bgcolor: "background.default", height: "100%", color: "primary.dark", paddingX: "24px", textTransform: "none", whiteSpace: "nowrap" }}>
-				{categoryId === 0 ? "All Categories" : selectedCategory?.categoryName}
+				{categoryId === 1 ? "All Categories" : selectedCategory?.categoryName}
 				<KeyboardArrowDown />
 			</Button>
 			{renderCategoriesDropdown}

@@ -20,10 +20,8 @@ function HomePage() {
 	};
 
 	useEffect(() => {
-		if (productStatus === IDLE) {
-			dispatch(fetchProducts(fetchConfig));
-		}
-	}, [dispatch]);
+		dispatch(fetchProducts(fetchConfig));
+	}, []);
 
 	let content: JSX.Element | JSX.Element[] = <p>Idle</p>;
 
