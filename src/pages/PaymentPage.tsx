@@ -2,6 +2,7 @@ import { Box, CircularProgress, Paper } from "@mui/material";
 import { Elements } from "@stripe/react-stripe-js";
 import { loadStripe } from "@stripe/stripe-js";
 import React, { useEffect, useState } from "react";
+import { useSearchParams } from "react-router-dom";
 import axiosInstance from "../app/axiosInstance";
 import CheckoutForm from "../components/checkout/CheckoutForm";
 
@@ -10,10 +11,11 @@ const stripePromise = loadStripe("pk_test_51LdCHZBKEPMX5hknwI5Qw9m0NPkGmMSNcmn8f
 
 const PaymentPage = (props: Props) => {
 	const [clientSecret, setClientSecret] = useState("");
-
+	const [searchParams] = useSearchParams();
+	const order_id = searchParams.get("order_id") || "";
 	useEffect(() => {
 		// Create PaymentIntent as soon as the page loads
-		axiosInstance.post("/payment/charge", JSON.stringify({ items: [{ id: "xl-tshirt" }] })).then((data) => setClientSecret(data.data));
+		axiosInstance.post("/payment/charge", JSON.stringify(order_id)).then((data) => setClientSecret(data.data));
 	}, []);
 
 	const options = {

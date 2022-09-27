@@ -3,7 +3,9 @@ import { Paper, Typography } from "@mui/material";
 import { Box } from "@mui/system";
 import React, { useState } from "react";
 import { Link } from "react-router-dom";
-import { useAppDispatch } from "../../app/hooks";
+import { useAppDispatch, useAppSelector } from "../../app/hooks";
+import { selectOrders } from "../../reducers/orderSlice";
+import { selectFavoriteProducts } from "../../reducers/productsSlice";
 
 type Props = {};
 
@@ -12,7 +14,8 @@ const Dashboard = (props: Props) => {
 	const handleClick = (name: string) => {
 		setSelectedPage(name);
 	};
-	const orderCount = useAppDispatch();
+	const favoriteCount = useAppSelector(selectFavoriteProducts).length;
+	const orderCount = useAppSelector(selectOrders).length;
 	const boxStyle = (val: string) => {
 		return { display: "flex", alignItems: "center", marginY: "1rem", borderLeft: selectedPage == `${val}` ? "4px solid #d23f57" : "", "&:hover": { borderLeft: "4px solid #d23f57" } };
 	};
@@ -28,7 +31,7 @@ const Dashboard = (props: Props) => {
 						Orders
 					</Typography>
 					<Typography variant="body2" sx={{ marginLeft: "auto" }}>
-						5
+						{orderCount}
 					</Typography>
 				</Box>
 			</Link>
@@ -39,7 +42,7 @@ const Dashboard = (props: Props) => {
 						Wishlist
 					</Typography>
 					<Typography variant="body2" sx={{ marginLeft: "auto" }}>
-						5
+						{favoriteCount}
 					</Typography>
 				</Box>
 			</Link>

@@ -18,13 +18,15 @@ const CheckoutPage = ({ moreInfo }: Props) => {
 	const dispatch = useAppDispatch();
 	const cart = useAppSelector(selectCart);
 	const navigate = useNavigate();
-	const handleSubmit = () => {
+	const handleSubmit = async () => {
 		if (selectedAddressId === 0) {
 			dispatch(setMessage({ error: false, message: "Pick delivery address before checkout" }));
 			return;
 		}
-		dispatch(addOrder({ moreInfo: moreInfo || "", deliveryAddressId: selectedAddressId }));
-		navigate("/payment");
+		const data = await dispatch(addOrder({ moreInfo: moreInfo || "", deliveryAddressId: selectedAddressId }));
+		if (data.meta.requestStatus === "fulfilled") {
+			navigate("/payment?order_id=" + data.payload.id);
+		}
 	};
 	const [selectedAddressId, setSelectedAddressId] = useState(0);
 	const handleSelectedAddressChange = (id: number) => {

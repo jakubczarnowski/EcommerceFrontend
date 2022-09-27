@@ -34,6 +34,7 @@ export const addOrder = createAsyncThunk("orders/addOrder", async (order: OrderC
 		thunkAPI.dispatch(resetCartState());
 		return response.data;
 	} catch (e: any) {
+		console.log(e);
 		thunkAPI.dispatch(setMessage({ message: "Failed to create order", error: true }));
 		return thunkAPI.rejectWithValue(e.response.message);
 	}
@@ -74,5 +75,5 @@ export const orderSlice = createSlice({
 export const selectOrders = (state: RootState) => state.order.orders;
 export const selectOrdersStatus = (state: RootState) => state.order.status;
 export const selectOrderError = (state: RootState) => state.order.error;
-export const resetOrdedState = orderSlice.actions.resetState;
+export const resetOrderState = orderSlice.actions.resetState;
 export default orderSlice.reducer;

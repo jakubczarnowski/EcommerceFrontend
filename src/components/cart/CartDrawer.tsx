@@ -44,7 +44,15 @@ const CartDrawer = ({ open, onClose }: Props) => {
 				</Box>
 			</Box>
 			<Box sx={{ padding: "20px", marginTop: "auto" }}>
-				<Button color="secondary" onClick={() => navigate("/checkout")} variant="contained" sx={{ width: "100%", textTransform: "none" }}>
+				<Button
+					color="secondary"
+					onClick={() => {
+						navigate("/checkout");
+						onClose();
+					}}
+					variant="contained"
+					sx={{ width: "100%", textTransform: "none" }}
+				>
 					Checkout now (${CalculateTotalCost(cart.cartItems)})
 				</Button>
 				<Button

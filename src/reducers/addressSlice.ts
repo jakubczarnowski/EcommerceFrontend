@@ -93,5 +93,5 @@ export const addressSlice = createSlice({
 export const selectAddress = (state: RootState) => state.address.addresses;
 export const selectAddressStatus = (state: RootState) => state.address.status;
 export const selectAddressError = (state: RootState) => state.address.error;
-export const resetCartState = addressSlice.actions.resetState;
+export const resetAddressState = addressSlice.actions.resetState;
 export default addressSlice.reducer;
