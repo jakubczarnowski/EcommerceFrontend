@@ -1,4 +1,4 @@
-import { ContentPasteGoOutlined } from "@mui/icons-material";
+import { ContentPasteGoOutlined, WindowSharp } from "@mui/icons-material";
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 import { rejects } from "assert";
 import { AxiosError } from "axios";
@@ -12,6 +12,7 @@ import { resetAddressState } from "./addressSlice";
 import { resetCartState } from "./cartSlice";
 import { setMessage } from "./messageSlice";
 import { resetOrderState } from "./orderSlice";
+import { resetProductState } from "./productsSlice";
 
 interface AuthState {
 	user: UserI | null;
@@ -50,9 +51,7 @@ export const login = createAsyncThunk("auth/login", async (parameters: LoginPara
 
 export const logout = createAsyncThunk("auth/logout", async (_, thunkAPI) => {
 	localStorage.removeItem("user");
-	thunkAPI.dispatch(resetCartState());
-	thunkAPI.dispatch(resetOrderState());
-	thunkAPI.dispatch(resetAddressState());
+	window.location.reload();
 });
 
 const initialState: AuthState = user ? { isLoggedIn: true, user: user, status: IDLE } : { isLoggedIn: false, user: null, status: IDLE };

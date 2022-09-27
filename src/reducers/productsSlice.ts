@@ -111,7 +111,9 @@ export const addReview = createAsyncThunk("review/addReview", async (params: Rev
 export const productSlice = createSlice({
 	name: "products",
 	initialState,
-	reducers: {},
+	reducers: {
+		resetState: (state) => initialState,
+	},
 	extraReducers: (builder) => {
 		builder
 			.addCase(fetchProducts.pending, (state) => {
@@ -164,6 +166,7 @@ export const productSlice = createSlice({
 			});
 	},
 });
+export const resetProductState = productSlice.actions.resetState;
 export const selectFavoriteProducts = (state: RootState) => state.products.products.filter((val) => val.favorite === true);
 export const selectProducts = (state: RootState) => state.products.products;
 export const selectStatus = (state: RootState) => state.products.status;
