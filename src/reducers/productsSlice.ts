@@ -84,7 +84,6 @@ export const addFavorite = createAsyncThunk("favorite/addFavorite", async (produ
 		const response = await axiosInstance.post(`/favorite?product_id=${product_id}`);
 		return product_id;
 	} catch (e: any) {
-		thunkAPI.dispatch(setMessage({ message: "Failed to add favorite", error: true }));
 		return thunkAPI.rejectWithValue(e.response.message);
 	}
 });

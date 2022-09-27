@@ -38,7 +38,6 @@ export const addToCart = createAsyncThunk("cart/addToCart", async (data: AddToCa
 		const response = await axiosInstance.post(`/cart/`, data);
 		return response.data;
 	} catch (e: any) {
-		thunkAPI.dispatch(setMessage({ message: "Failed to add to cart", error: true }));
 		return thunkAPI.rejectWithValue(e.response.message);
 	}
 });

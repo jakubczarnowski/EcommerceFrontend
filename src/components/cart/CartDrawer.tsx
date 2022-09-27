@@ -4,6 +4,7 @@ import { Box } from "@mui/system";
 import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router";
 import { useAppDispatch, useAppSelector } from "../../app/hooks";
+import { selectUserIsLogged } from "../../reducers/authSlice";
 import { fetchCart, selectCart, selectCartStatus } from "../../reducers/cartSlice";
 import { CalculateTotalCost } from "../../utils/CalculateTotalCost";
 import { IDLE } from "../../utils/states";
@@ -19,12 +20,13 @@ const CartDrawer = ({ open, onClose }: Props) => {
 	const cart = useAppSelector(selectCart);
 	const status = useAppSelector(selectCartStatus);
 	const anchor = "right";
+	const loggedIn = useAppSelector(selectUserIsLogged);
 	const dispatch = useAppDispatch();
 	useEffect(() => {
-		if (status === IDLE) {
+		if (status === IDLE && loggedIn) {
 			dispatch(fetchCart());
 		}
-	}, []);
+	}, [loggedIn]);
 	return (
 		<Drawer sx={{ zIndex: 1204, display: "flex", flexDirection: "column" }} anchor={anchor} open={open} onClose={() => onClose()}>
 			<Box sx={{ width: "380px" }}>

@@ -1,5 +1,5 @@
 import { Box, Container } from "@mui/material";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { useAppDispatch, useAppSelector } from "../app/hooks";
 import OrderList from "../components/checkout/OrderList";
 import SelectAddress from "../components/checkout/SelectAddress";
@@ -9,6 +9,7 @@ import { useNavigate } from "react-router";
 import { addOrder } from "../reducers/orderSlice";
 import { useFirstRender } from "@mui/x-data-grid";
 import { setMessage } from "../reducers/messageSlice";
+import { selectUserIsLogged } from "../reducers/authSlice";
 
 type Props = {
 	moreInfo?: string;
@@ -17,6 +18,7 @@ type Props = {
 const CheckoutPage = ({ moreInfo }: Props) => {
 	const dispatch = useAppDispatch();
 	const cart = useAppSelector(selectCart);
+	const loggedIn = useAppSelector(selectUserIsLogged);
 	const navigate = useNavigate();
 	const handleSubmit = async () => {
 		if (selectedAddressId === 0) {
@@ -32,7 +34,11 @@ const CheckoutPage = ({ moreInfo }: Props) => {
 	const handleSelectedAddressChange = (id: number) => {
 		setSelectedAddressId(id);
 	};
-	console.log(selectedAddressId);
+	useEffect(() => {
+		if (!loggedIn) {
+			navigate("/", { replace: true });
+		}
+	}, []);
 	return (
 		<Box sx={{ width: "100%", height: "100%", backgroundColor: "primary.main", margin: "0", padding: "0", position: "absolute", overflow: "hidden" }}>
 			<Container maxWidth="lg" sx={{ margin: "32px auto", paddingX: "24px" }}>

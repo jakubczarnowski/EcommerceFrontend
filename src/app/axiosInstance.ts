@@ -1,9 +1,10 @@
 import axios from "axios";
 import { logout } from "../reducers/authSlice";
+import { setMessage } from "../reducers/messageSlice";
 import { BASE_URL } from "../utils/BaseUrl";
 import { useAppDispatch } from "./hooks";
+import { store } from "./store";
 import TokenService from "./tokenService";
-
 const axiosInstance = axios.create({
 	baseURL: BASE_URL,
 	headers: {
@@ -61,4 +62,19 @@ axiosInstance.interceptors.response.use(
 		return Promise.reject(err);
 	}
 );
+axiosInstance.interceptors.response.use(
+	(res: any) => {
+		return res;
+	},
+	async (err: any) => {
+		const originalConfig = err.config;
+
+		if (err.response.status === 401) {
+			store.dispatch(setMessage({ message: "You have to be logged to do that.", error: true }));
+		}
+
+		return Promise.reject(err);
+	}
+);
+
 export default axiosInstance;

@@ -23,6 +23,7 @@ import { selectCart, selectCartItemsLength } from "../../reducers/cartSlice";
 import { Button, Container, FormControl, OutlinedInput } from "@mui/material";
 import logo from "../../static/images/logo2.svg";
 import SearchField from "./SearchField";
+import { setMessage } from "../../reducers/messageSlice";
 type Props = {
 	isAdmin: boolean;
 };
@@ -209,7 +210,7 @@ export default function Navbar({ isAdmin }: Props) {
 							<IconButton onClick={handleLoginMenuOpen} size="large" aria-label="account of current user" aria-haspopup="true" color="inherit">
 								<AccountCircle />
 							</IconButton>
-							<IconButton onClick={() => setCartOpen(!cartOpen)} size="large" aria-label="Open cart" color="inherit">
+							<IconButton onClick={() => (loggedIn ? setCartOpen(!cartOpen) : dispatch(setMessage({ message: "Log In First", error: false })))} size="large" aria-label="Open cart" color="inherit">
 								<Badge badgeContent={cartItemsLength} color="error">
 									<ShoppingCart />
 								</Badge>
