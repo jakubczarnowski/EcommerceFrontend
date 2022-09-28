@@ -10,6 +10,7 @@ import { fetchOrders, selectOrders, selectOrdersStatus } from "../reducers/order
 import { IDLE } from "../utils/states";
 import Profile from "../components/profile/Profile";
 import Addresses from "../components/profile/Addresses";
+import Order from "../components/profile/Order";
 
 type Props = {};
 
@@ -25,11 +26,12 @@ const ProfilePage = (props: Props) => {
 	}, []);
 	return (
 		<Grid spacing={3} columns={12} maxWidth="lg" container sx={{ paddingX: "24px", marginY: "2rem" }}>
-			<Grid item xs={12} md={3}>
+			<Grid item xs={12} sm={12} md={3}>
 				<Dashboard />
 			</Grid>
-			<Grid item md={9}>
+			<Grid item md={9} sm={12}>
 				<Routes>
+					<Route path="/orders/:id" element={<Order />} />
 					<Route path="/orders" element={<Orders orders={orders} />} />
 					<Route path="/wishlist" element={<WishList />} />
 					<Route path="/" element={<Profile />} />
