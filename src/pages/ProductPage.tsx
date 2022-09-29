@@ -38,11 +38,15 @@ function ProductPage() {
 						<img src={BASE_IMAGE_URL + product.imagesUrl[selectedProductUrl]} style={{ objectFit: "contain", height: "350px", width: "350px" }} alt={"Main Image"} />
 					</Box>
 					<Box sx={{ display: "flex", alignItems: "center", justifyContent: "center", flexDirection: "row", gap: "10px" }}>
-						<Box onClick={() => setSelectedProductUrl(0)} sx={{ border: "1px solid", borderColor: [selectedProductUrl === 0 ? "secondary.main" : "primary.light"], borderRadius: "10px", width: "64px", height: "64px", display: "flex", justifyContent: "center", alignItems: "center" }}>
-							<Avatar sx={{ height: "40px" }} variant="square">
-								<img src={BASE_IMAGE_URL + product.imagesUrl[0]} alt="" style={{ width: "inherit", height: "inherit", objectFit: "fill" }} />
-							</Avatar>
-						</Box>
+						{product.imagesUrl.map((_, index) => {
+							return (
+								<Box onClick={() => setSelectedProductUrl(index)} sx={{ border: "1px solid", borderColor: [selectedProductUrl === index ? "secondary.main" : "primary.light"], borderRadius: "10px", width: "64px", height: "64px", display: "flex", justifyContent: "center", alignItems: "center" }}>
+									<Avatar sx={{ height: "40px" }} variant="square">
+										<img src={BASE_IMAGE_URL + product.imagesUrl[index]} alt="" style={{ width: "inherit", height: "inherit", objectFit: "fill" }} />
+									</Avatar>
+								</Box>
+							);
+						})}
 					</Box>
 				</Grid>
 				<Grid item xs={12} md={6} sx={{ paddingLeft: "10px" }}>
@@ -94,10 +98,6 @@ function ProductPage() {
 						Description:
 					</Typography>
 					<Typography variant="body2">{product.description}</Typography>
-					<Typography variant="body2">{product.description}</Typography>
-					<Typography variant="body2">{product.description}</Typography>
-					<Typography variant="body2">{product.description}</Typography>
-					<Typography variant="body2">Brand: Beats Model: S450 Wireless Bluetooth Headset FM Frequency Response: 87.5 – 108 MHz Feature: FM Radio, Card Supported (Micro SD / TF) Made in China</Typography>
 				</Box>
 				<Box id="review" aria-labelledby={`review`} hidden={tabValue !== 1} sx={{ margin: "20px" }}>
 					{product?.reviews?.map((review) => (

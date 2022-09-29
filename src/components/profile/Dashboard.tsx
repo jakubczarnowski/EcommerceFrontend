@@ -4,6 +4,7 @@ import { Box } from "@mui/system";
 import React, { useState } from "react";
 import { Link } from "react-router-dom";
 import { useAppDispatch, useAppSelector } from "../../app/hooks";
+import { selectAddress } from "../../reducers/addressSlice";
 import { selectOrders } from "../../reducers/orderSlice";
 import { selectFavoriteProducts } from "../../reducers/productsSlice";
 
@@ -15,6 +16,7 @@ const Dashboard = (props: Props) => {
 		setSelectedPage(name);
 	};
 	const favoriteCount = useAppSelector(selectFavoriteProducts).length;
+	const addressCount = useAppSelector(selectAddress).length;
 	const orderCount = useAppSelector(selectOrders).length;
 	const boxStyle = (val: string) => {
 		return { display: "flex", alignItems: "center", marginY: "1rem", borderLeft: selectedPage == `${val}` ? "4px solid #d23f57" : "", "&:hover": { borderLeft: "4px solid #d23f57" } };
@@ -47,24 +49,13 @@ const Dashboard = (props: Props) => {
 				</Box>
 			</Link>
 			<Typography color="primary.gray" variant="body1" sx={{ fontSize: "14px", marginToY: "20px 10px" }}>
-				DASHBOARD
+				PROFILE
 			</Typography>
 			<Link to="/profile" onClick={() => handleClick("profile")}>
 				<Box sx={boxStyle("profile")}>
 					<Person color={selectedPage == "profile" ? "secondary" : "inherit"} fontSize="small" />
 					<Typography variant="body2" sx={{ color: selectedPage == "profile" ? "secondary.main" : "black", "&:hover": { color: "secondary.main" } }}>
 						Profile info
-					</Typography>
-				</Box>
-			</Link>
-			<Link to="/profile/addresses" onClick={() => handleClick("addresses")}>
-				<Box sx={boxStyle("addresses")}>
-					<LocationOn color={selectedPage == "addresses" ? "secondary" : "inherit"} fontSize="small" />
-					<Typography variant="body2" sx={{ color: selectedPage == "addresses" ? "secondary.main" : "black", "&:hover": { color: "secondary.main" } }}>
-						Addresses
-					</Typography>
-					<Typography variant="body2" sx={{ marginLeft: "auto" }}>
-						5
 					</Typography>
 				</Box>
 			</Link>

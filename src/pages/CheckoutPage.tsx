@@ -25,6 +25,10 @@ const CheckoutPage = ({ moreInfo }: Props) => {
 			dispatch(setMessage({ error: false, message: "Pick delivery address before checkout" }));
 			return;
 		}
+		if (cart.cartItems.length === 0) {
+			dispatch(setMessage({ error: false, message: "Add items to the cart first" }));
+			return;
+		}
 		const data = await dispatch(addOrder({ moreInfo: moreInfo || "", deliveryAddressId: selectedAddressId }));
 		if (data.meta.requestStatus === "fulfilled") {
 			navigate("/payment?order_id=" + data.payload.id);

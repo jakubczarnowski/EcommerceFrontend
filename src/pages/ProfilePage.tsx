@@ -9,7 +9,6 @@ import { useAppDispatch, useAppSelector } from "../app/hooks";
 import { fetchOrders, selectOrders, selectOrdersStatus } from "../reducers/orderSlice";
 import { IDLE } from "../utils/states";
 import Profile from "../components/profile/Profile";
-import Addresses from "../components/profile/Addresses";
 import Order from "../components/profile/Order";
 
 type Props = {};
@@ -35,7 +34,6 @@ const ProfilePage = (props: Props) => {
 					<Route path="/orders" element={<Orders orders={orders} />} />
 					<Route path="/wishlist" element={<WishList />} />
 					<Route path="/" element={<Profile />} />
-					<Route path="/addresses" element={<Addresses />} />
 				</Routes>
 			</Grid>
 		</Grid>
