@@ -30,6 +30,10 @@ function ProductPage() {
 		setTabValue(newValue);
 	};
 	const existsInCart = cartItem !== undefined;
+	if (product === undefined) {
+		return <p>Loading</p>;
+	}
+	console.log(product);
 	return (
 		<Box sx={{ width: "100%", height: "auto", position: "sticky", backgroundColor: "primary.main", overflow: "hidden" }}>
 			<Grid container maxWidth="lg" columns={12} sx={{ paddingTop: "24px", marginBottom: "16px", marginX: " auto" }}>
@@ -40,7 +44,7 @@ function ProductPage() {
 					<Box sx={{ display: "flex", alignItems: "center", justifyContent: "center", flexDirection: "row", gap: "10px" }}>
 						{product.imagesUrl.map((_, index) => {
 							return (
-								<Box onClick={() => setSelectedProductUrl(index)} sx={{ border: "1px solid", borderColor: [selectedProductUrl === index ? "secondary.main" : "primary.light"], borderRadius: "10px", width: "64px", height: "64px", display: "flex", justifyContent: "center", alignItems: "center" }}>
+								<Box key={index} onClick={() => setSelectedProductUrl(index)} sx={{ border: "1px solid", borderColor: [selectedProductUrl === index ? "secondary.main" : "primary.light"], borderRadius: "10px", width: "64px", height: "64px", display: "flex", justifyContent: "center", alignItems: "center" }}>
 									<Avatar sx={{ height: "40px" }} variant="square">
 										<img src={BASE_IMAGE_URL + product.imagesUrl[index]} alt="" style={{ width: "inherit", height: "inherit", objectFit: "fill" }} />
 									</Avatar>
@@ -101,7 +105,7 @@ function ProductPage() {
 				</Box>
 				<Box id="review" aria-labelledby={`review`} hidden={tabValue !== 1} sx={{ margin: "20px" }}>
 					{product?.reviews?.map((review) => (
-						<Review key={review.id} name={review.name} rating={review.rating} timePosted={review.postDate} message={review.review} />
+						<Review key={"review" + review?.id} name={review.name} rating={review.rating} timePosted={review.postDate} message={review.review} />
 					))}
 					<ReviewForm productId={product.id} />
 				</Box>

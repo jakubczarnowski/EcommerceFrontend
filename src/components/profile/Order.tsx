@@ -76,24 +76,26 @@ const Order = (props: Props) => {
 				<Grid item lg={4} md={4} sm={12} xs={12}>
 					<OrderList cart={{ cartItems: order.cartItems, totalCost: order.totalCost }} />
 				</Grid>
+				<Grid gridRow={1} item md={12} xs={12}>
+					<Paper sx={{ flexDirection: "column", padding: "15px 25px", marginY: "20px", width: "60%" }}>
+						<Typography variant="body1" fontSize={"16px"} fontWeight={"bold"} marginBottom={"10px"}>
+							Shipping Address
+						</Typography>
+						<Typography variant="body1" fontSize={"16px"}>
+							Street Line: {order.deliveryAddress.streetLine}
+						</Typography>
+						<Typography variant="body1" fontSize={"16px"}>
+							City: {order.deliveryAddress.city}
+						</Typography>
+						<Typography variant="body1" fontSize={"16px"}>
+							Zip Code: {order.deliveryAddress.zipCode}
+						</Typography>
+						<Typography variant="body1" fontSize={"16px"}>
+							Phone Number: {order.deliveryAddress.phoneNumber}
+						</Typography>
+					</Paper>
+				</Grid>
 			</Grid>
-			<Paper sx={{ flexDirection: "column", padding: "15px 25px", marginY: "20px" }}>
-				<Typography variant="body1" fontSize={"16px"} fontWeight={"bold"} marginBottom={"10px"}>
-					Shipping Address
-				</Typography>
-				<Typography variant="body1" fontSize={"16px"}>
-					Street Line: {order.deliveryAddress.streetLine}
-				</Typography>
-				<Typography variant="body1" fontSize={"16px"}>
-					City: {order.deliveryAddress.city}
-				</Typography>
-				<Typography variant="body1" fontSize={"16px"}>
-					Zip Code: {order.deliveryAddress.zipCode}
-				</Typography>
-				<Typography variant="body1" fontSize={"16px"}>
-					Phone Number: {order.deliveryAddress.phoneNumber}
-				</Typography>
-			</Paper>
 		</Box>
 	);
 };

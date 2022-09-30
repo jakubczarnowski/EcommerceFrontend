@@ -45,6 +45,7 @@ const SearchPage = (props: Props) => {
 	const fetchConfig: ProductParamsI = {
 		size: 30,
 		page: 1,
+		sort: selectedSort,
 		search: search,
 		categoryId: categoryId,
 	};
