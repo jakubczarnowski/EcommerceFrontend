@@ -6,7 +6,7 @@ import reportWebVitals from "./reportWebVitals";
 import theme from "./theme";
 import { ThemeProvider } from "@mui/material/styles";
 import App from "./pages/App";
-import { BrowserRouter } from "react-router-dom";
+import { BrowserRouter, HashRouter } from "react-router-dom";
 import { useAppDispatch } from "./app/hooks";
 import { fetchCategories } from "./reducers/categorySlice";
 
@@ -17,13 +17,13 @@ store.dispatch(fetchCategories());
 
 root.render(
 	<React.StrictMode>
-		<BrowserRouter>
+		<HashRouter>
 			<ThemeProvider theme={theme}>
 				<Provider store={store}>
 					<App />
 				</Provider>
 			</ThemeProvider>
-		</BrowserRouter>
+		</HashRouter>
 	</React.StrictMode>
 );
 
