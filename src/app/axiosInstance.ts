@@ -6,7 +6,6 @@ import { useAppDispatch } from "./hooks";
 import { store } from "./store";
 import TokenService from "./tokenService";
 
-process.env.NODE_TLS_REJECT_UNAUTHORIZED = "0";
 const axiosInstance = axios.create({
 	baseURL: BASE_URL,
 	headers: {
