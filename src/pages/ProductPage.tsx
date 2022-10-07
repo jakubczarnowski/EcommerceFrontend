@@ -40,8 +40,6 @@ function ProductPage() {
 	if (product === undefined) {
 		return <p>Loading</p>;
 	}
-<<<<<<< HEAD
-=======
 	if (categoriesStatus === FULLFILLED) {
 		const parsedCategories = ParseCategories(categories || ({} as CategoryI));
 		const categoryChain = getCategoryChain(parsedCategories, parsedCategories.find((c) => c.id === product?.categoryId) || ({} as CategoryI)).reverse();
@@ -64,7 +62,6 @@ function ProductPage() {
 			</Box>
 		);
 	}
->>>>>>> 490dc44fdb1ec74980d7ceee3d62c6ab5880b1de
 	return (
 		<Box sx={{ width: "100%", height: "auto", position: "sticky", backgroundColor: "primary.main", overflow: "hidden" }}>
 			<Grid container maxWidth="lg" columns={12} sx={{ paddingTop: "24px", marginBottom: "16px", marginX: " auto" }}>
