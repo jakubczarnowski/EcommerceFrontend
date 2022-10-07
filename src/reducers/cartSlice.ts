@@ -44,7 +44,6 @@ export const addToCart = createAsyncThunk("cart/addToCart", async (data: AddToCa
 export const changeQuantity = createAsyncThunk("cart/changeQuantity", async (data: ChangeQuantityI, thunkAPI) => {
 	try {
 		const response = await axiosInstance.put(`/cart/`, data);
-		console.log(response);
 		return response.data;
 	} catch (e: any) {
 		thunkAPI.dispatch(setMessage({ message: "Failed to change quantity", error: true }));
@@ -73,13 +72,10 @@ export const cartSlice = createSlice({
 				state.error = action.error.message;
 			})
 			.addCase(addToCart.fulfilled, (state, action) => {
-				console.log(action);
 				state.cart.cartItems.push(action.payload);
 			})
 
-			.addCase(addToCart.rejected, (state, action) => {
-				console.log(action);
-			})
+			.addCase(addToCart.rejected, (state, action) => {})
 			.addCase(changeQuantity.fulfilled, (state, action) => {
 				let cartId = state.cart.cartItems.findIndex((item) => item.id === action.payload.id);
 				state.cart.cartItems[cartId].quantity = action.payload.quantity;

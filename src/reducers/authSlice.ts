@@ -74,7 +74,6 @@ export const authSlice = createSlice({
 				localStorage.setItem("user", JSON.stringify(action.payload));
 			})
 			.addCase(login.rejected, (state, action) => {
-				console.log(action);
 				state.isLoggedIn = false;
 				state.user = null;
 			})

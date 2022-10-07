@@ -30,7 +30,6 @@ const Product = ({ product }: ProductProps) => {
 		if (!favorite) {
 			res = await dispatch(addFavorite(product.id));
 		} else {
-			console.log(product);
 			res = await dispatch(deleteFavorite(product.id));
 		}
 		if (res.meta.requestStatus !== "rejected") {

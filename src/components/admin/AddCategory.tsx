@@ -28,12 +28,8 @@ const AddCategory = (props: Props) => {
 	}
 	const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
 		event.preventDefault();
-		console.log(categoryId);
-		console.log(category);
 		try {
 			const { failed } = await dispatch(createCategory(category)).unwrap();
-
-			console.log(failed);
 			if (!failed) {
 				dispatch(fetchCategories());
 				setCategory(initialCategoryState);

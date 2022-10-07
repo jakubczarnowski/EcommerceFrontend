@@ -33,7 +33,6 @@ function ProductPage() {
 	if (product === undefined) {
 		return <p>Loading</p>;
 	}
-	console.log(product);
 	return (
 		<Box sx={{ width: "100%", height: "auto", position: "sticky", backgroundColor: "primary.main", overflow: "hidden" }}>
 			<Grid container maxWidth="lg" columns={12} sx={{ paddingTop: "24px", marginBottom: "16px", marginX: " auto" }}>
