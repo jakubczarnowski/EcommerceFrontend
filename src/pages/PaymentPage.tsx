@@ -25,19 +25,8 @@ const PaymentPage = (props: Props) => {
 			navigate("/");
 			return;
 		}
-		const { moreInfo, selectedAddressId } = state as { moreInfo: string; selectedAddressId: number };
-
-		const fetchData = async () => {
-			return await dispatch(addOrder({ moreInfo: moreInfo || "", deliveryAddressId: selectedAddressId }));
-		};
-		fetchData().then((data) => {
-			if (data.meta.requestStatus === "fulfilled") {
-				axiosInstance.post("/payment/charge", JSON.stringify(data.payload.id)).then((data) => setClientSecret(data.data));
-			} else {
-				dispatch(setMessage({ message: "Order failed", error: true }));
-				navigate("/checkout");
-			}
-		});
+		const { moreInfo, selectedAddressId, order_id } = state as { moreInfo: string; selectedAddressId: number; order_id: number };
+		axiosInstance.post("/payment/charge", JSON.stringify(order_id)).then((data) => setClientSecret(data.data));
 	}, []);
 
 	const options = {

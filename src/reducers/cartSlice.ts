@@ -6,7 +6,7 @@ import axiosInstance from "../app/axiosInstance";
 import { FAILED, FULLFILLED, IDLE, LOADING } from "../utils/states";
 import { setMessage } from "./messageSlice";
 import CartItemI from "../types/CartItemI";
-import { CarCrashTwoTone } from "@mui/icons-material";
+import { CarCrashTwoTone, NextPlanSharp } from "@mui/icons-material";
 import CartI from "../types/CartI";
 import AddToCartI from "../types/AddToCartI";
 import { queryAllByAltText } from "@testing-library/react";
@@ -88,11 +88,7 @@ export const cartSlice = createSlice({
 
 export const selectCart = (state: RootState) => state.cart.cart;
 export const selectCartItemsLength = (state: RootState) => {
-	let len = 0;
-	state.cart.cart.cartItems.forEach((val) => {
-		len += val.quantity;
-	});
-	return len;
+	return state.cart.cart.cartItems.reduce((curr, next) => (curr += next.quantity), 0);
 };
 export const selectCartStatus = (state: RootState) => state.cart.status;
 export const selectCartError = (state: RootState) => state.cart.error;

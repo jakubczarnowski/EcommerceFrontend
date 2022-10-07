@@ -10,6 +10,7 @@ import { addOrder } from "../reducers/orderSlice";
 import { useFirstRender } from "@mui/x-data-grid";
 import { setMessage } from "../reducers/messageSlice";
 import { selectUserIsLogged } from "../reducers/authSlice";
+import axiosInstance from "../app/axiosInstance";
 
 type Props = {
 	moreInfo?: string;
@@ -20,17 +21,6 @@ const CheckoutPage = ({ moreInfo }: Props) => {
 	const cart = useAppSelector(selectCart);
 	const loggedIn = useAppSelector(selectUserIsLogged);
 	const navigate = useNavigate();
-	const handleSubmit = async () => {
-		if (selectedAddressId === 0) {
-			dispatch(setMessage({ error: false, message: "Pick delivery address before checkout" }));
-			return;
-		}
-		if (cart.cartItems.length === 0) {
-			dispatch(setMessage({ error: false, message: "Add items to the cart first" }));
-			return;
-		}
-		navigate("/payment", { state: { moreInfo: moreInfo, selectedAddressId: selectedAddressId } });
-	};
 	const [selectedAddressId, setSelectedAddressId] = useState(0);
 	const handleSelectedAddressChange = (id: number) => {
 		setSelectedAddressId(id);
@@ -40,6 +30,30 @@ const CheckoutPage = ({ moreInfo }: Props) => {
 			navigate("/", { replace: true });
 		}
 	}, []);
+	const handleSubmit = async () => {
+		if (selectedAddressId === 0) {
+			dispatch(setMessage({ error: false, message: "Pick delivery address before checkout" }));
+			return;
+		}
+		if (cart.cartItems.length === 0) {
+			dispatch(setMessage({ error: false, message: "Add items to the cart first" }));
+			return;
+		}
+		let clientSecret: string | null = null;
+		let order_id: number | null = null;
+		const fetchData = async () => {
+			return await dispatch(addOrder({ moreInfo: moreInfo || "", deliveryAddressId: selectedAddressId }));
+		};
+		fetchData().then((data) => {
+			if (data.meta.requestStatus === "fulfilled") {
+				order_id = data.payload.id;
+				navigate("/payment", { state: { moreInfo: moreInfo, selectedAddressId: selectedAddressId, order_id: order_id } });
+			} else {
+				dispatch(setMessage({ message: "Order failed", error: true }));
+			}
+		});
+	};
+
 	return (
 		<Box sx={{ width: "100%", height: "100%", backgroundColor: "primary.main", margin: "0", padding: "0", position: "absolute", overflow: "hidden" }}>
 			<Container maxWidth="lg" sx={{ margin: "32px auto", paddingX: "24px" }}>
