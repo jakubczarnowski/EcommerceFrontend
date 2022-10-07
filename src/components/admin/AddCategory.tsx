@@ -12,15 +12,15 @@ import ParseCategories from "../../utils/ParseCategories";
 type Props = {};
 
 const AddCategory = (props: Props) => {
+	const dispatch = useAppDispatch();
+	const [categoryId, setCategoryId] = useState(1);
 	const initialCategoryState: CategoryCreateI = {
 		categoryName: "",
 		description: "",
-		parentId: 1,
+		parentId: categoryId,
 	};
-
-	const dispatch = useAppDispatch();
 	const [category, setCategory] = useState<CategoryCreateI>(initialCategoryState);
-	const [categoryId, setCategoryId] = useState(1);
+
 	const categories = useAppSelector(selectCategories);
 	let parsedCategories: CategoryI[] = [];
 	if (categories !== null) {

@@ -42,9 +42,11 @@ const SearchPage = (props: Props) => {
 	const handleChange = (panel: string) => (event: React.SyntheticEvent, newExpanded: boolean) => {
 		setExpanded(newExpanded ? panel : false);
 	};
+	const [page, setPage] = useState(1);
+
 	const fetchConfig: ProductParamsI = {
 		size: 30,
-		page: 1,
+		page: page,
 		sort: selectedSort,
 		search: search,
 		categoryId: categoryId,
