@@ -124,7 +124,6 @@ export const productSlice = createSlice({
 			})
 			.addCase(fetchProducts.rejected, (state, action) => {
 				state.status = FAILED;
-				console.log(action);
 				state.error = action.error.message;
 			})
 			.addCase(fetchProductBySlug.pending, (state) => {
@@ -141,7 +140,6 @@ export const productSlice = createSlice({
 			})
 			.addCase(fetchProductBySlug.rejected, (state, action) => {
 				state.status = FAILED;
-				console.log(action);
 				state.error = action.error.message;
 			})
 			.addCase(createProduct.fulfilled, (state, action) => {

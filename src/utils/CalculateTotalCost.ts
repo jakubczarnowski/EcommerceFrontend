@@ -1,9 +1,6 @@
 import CartItemI from "../types/CartItemI";
 
 export const CalculateTotalCost = (cartItems: CartItemI[]) => {
-	let totalCost = 0;
-	cartItems.forEach((cartItem) => {
-		totalCost += cartItem.product.price * cartItem.quantity;
-	});
+	let totalCost = cartItems.reduce((current, next) => current + next.product.price * next.quantity, 0);
 	return totalCost.toFixed(2);
 };

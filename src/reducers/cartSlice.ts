@@ -6,7 +6,7 @@ import axiosInstance from "../app/axiosInstance";
 import { FAILED, FULLFILLED, IDLE, LOADING } from "../utils/states";
 import { setMessage } from "./messageSlice";
 import CartItemI from "../types/CartItemI";
-import { CarCrashTwoTone } from "@mui/icons-material";
+import { CarCrashTwoTone, NextPlanSharp } from "@mui/icons-material";
 import CartI from "../types/CartI";
 import AddToCartI from "../types/AddToCartI";
 import { queryAllByAltText } from "@testing-library/react";
@@ -44,7 +44,6 @@ export const addToCart = createAsyncThunk("cart/addToCart", async (data: AddToCa
 export const changeQuantity = createAsyncThunk("cart/changeQuantity", async (data: ChangeQuantityI, thunkAPI) => {
 	try {
 		const response = await axiosInstance.put(`/cart/`, data);
-		console.log(response);
 		return response.data;
 	} catch (e: any) {
 		thunkAPI.dispatch(setMessage({ message: "Failed to change quantity", error: true }));
@@ -73,13 +72,10 @@ export const cartSlice = createSlice({
 				state.error = action.error.message;
 			})
 			.addCase(addToCart.fulfilled, (state, action) => {
-				console.log(action);
 				state.cart.cartItems.push(action.payload);
 			})
 
-			.addCase(addToCart.rejected, (state, action) => {
-				console.log(action);
-			})
+			.addCase(addToCart.rejected, (state, action) => {})
 			.addCase(changeQuantity.fulfilled, (state, action) => {
 				let cartId = state.cart.cartItems.findIndex((item) => item.id === action.payload.id);
 				state.cart.cartItems[cartId].quantity = action.payload.quantity;
@@ -92,11 +88,7 @@ export const cartSlice = createSlice({
 
 export const selectCart = (state: RootState) => state.cart.cart;
 export const selectCartItemsLength = (state: RootState) => {
-	let len = 0;
-	state.cart.cart.cartItems.forEach((val) => {
-		len += val.quantity;
-	});
-	return len;
+	return state.cart.cart.cartItems.reduce((curr, next) => (curr += next.quantity), 0);
 };
 export const selectCartStatus = (state: RootState) => state.cart.status;
 export const selectCartError = (state: RootState) => state.cart.error;

@@ -34,7 +34,6 @@ export default function ProductList() {
 	}, []);
 	const onCellEdit = (params: any) => {
 		let newProduct: ProductCreateI = { [params.field]: params.value, id: params.id };
-		console.log(newProduct);
 		dispatch(editProduct(newProduct));
 	};
 	const handleDeleteClick = (id: number) => {

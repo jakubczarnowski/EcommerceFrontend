@@ -32,7 +32,6 @@ const AddProduct = (props: Props) => {
 	const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
 		event.preventDefault();
 		try {
-			console.log(product);
 			const { failed } = await dispatch(createProduct(product)).unwrap();
 			if (!failed) {
 				setImagePreview(null);

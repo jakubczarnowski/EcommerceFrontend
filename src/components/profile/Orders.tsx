@@ -17,8 +17,6 @@ const StyledText = ({ text }: { text: string | JSX.Element }) => (
 
 const Orders = ({ orders }: Props) => {
 	const navigate = useNavigate();
-	console.log(orders);
-
 	return (
 		<Box>
 			<Paper elevation={0} sx={{ display: "flex", flexDirection: "row", padding: "5px", alignItems: "center", backgroundColor: "background.default" }}>
