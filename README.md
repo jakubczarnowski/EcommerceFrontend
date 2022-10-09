@@ -6,8 +6,7 @@ Tech stack:
 -Material Ui
 
 # Disclaimer
-Used a lot of inline styling, went too deep into the project realizing it might not be the most efficient option;
-Quite a large project, took too much of my time, to be reviewed tho;
+Async Thunk used across the project. Rtk Query is a way to go, future ones will fix the issue
 
 # Status
 Completed
