@@ -24,7 +24,7 @@ const ProfilePage = (props: Props) => {
 		}
 	}, []);
 	return (
-		<Grid spacing={3} columns={12} maxWidth="lg" container sx={{ paddingX: "24px", marginY: "2rem" }}>
+		<Grid spacing={3} columns={12} maxWidth="lg" container sx={{ mx: "auto", paddingX: "24px", marginY: "2rem" }}>
 			<Grid item xs={12} sm={12} md={3}>
 				<Dashboard />
 			</Grid>

@@ -33,7 +33,7 @@ export const register = createAsyncThunk("auth/register", async (params: Registe
 		thunkAPI.dispatch(setMessage({ message: "Registered Succesfully", error: false }));
 		return response.data;
 	} catch (err: any) {
-		thunkAPI.dispatch(setMessage({ message: err.response.data.message, error: true }));
+		thunkAPI.dispatch(setMessage({ message: "Error during registration", error: true }));
 		return thunkAPI.rejectWithValue({ failed: true });
 	}
 });
@@ -44,7 +44,8 @@ export const login = createAsyncThunk("auth/login", async (parameters: LoginPara
 		thunkAPI.dispatch(setMessage({ message: "Logged In Succesfully", error: false }));
 		return response.data;
 	} catch (err: any) {
-		thunkAPI.dispatch(setMessage({ message: err.response.data.message, error: true }));
+		// Create handling on backend
+		thunkAPI.dispatch(setMessage({ message: "Wrong Creditentials", error: true }));
 		return thunkAPI.rejectWithValue({ failed: true });
 	}
 });

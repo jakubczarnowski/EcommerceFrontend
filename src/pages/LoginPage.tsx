@@ -38,8 +38,8 @@ export default function LoginPage() {
 			const result = await dispatch(login(formData));
 			if (result.meta.requestStatus === "fulfilled") {
 				dispatch(fetchCart());
+				navigate("/");
 			}
-			navigate("/");
 		} catch (e) {
 			console.log(e);
 		}
