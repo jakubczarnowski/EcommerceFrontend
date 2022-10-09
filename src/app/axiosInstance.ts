@@ -70,7 +70,7 @@ axiosInstance.interceptors.response.use(
 	async (err: any) => {
 		const originalConfig = err.config;
 
-		if (err.response.status === 401) {
+		if (originalConfig.url !== "/auth/signin" && err.response.status === 401) {
 			store.dispatch(setMessage({ message: "You have to be logged to do that.", error: true }));
 		}
 
