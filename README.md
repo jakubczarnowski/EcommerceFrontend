@@ -10,6 +10,7 @@ Async Thunk used across the project. Rtk Query is a way to go, future ones will 
 
 # Status
 Completed
+Check it out [Here](https://ecommerce.czarnowskijakub.tech/)
 
 # Note that it is Portfolio only project, in a commercial application few things might've been done differently
 Access to admin account - 
