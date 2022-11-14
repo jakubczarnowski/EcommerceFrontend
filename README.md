@@ -14,8 +14,8 @@ Check it out [Here](https://ecommerce.czarnowskijakub.tech/)
 
 # Note that it is Portfolio only project, in a commercial application few things might've been done differently
 ## Access to admin account - 
-### Username: admin
-### Password: admin
+##### Username: admin
+##### Password: admin
 
 # Features
 - Fully responsive
