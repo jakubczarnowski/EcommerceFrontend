@@ -7,6 +7,7 @@ Tech stack:
 
 # Disclaimer
 Async Thunk used across the project. Rtk Query is a way to go, future ones will fix the issue
+Code quality is significantly worse as it's an older project, so for now it's just a showcase.
 
 # Status
 Completed
