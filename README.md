@@ -1,3 +1,4 @@
+# BE CAREFUL, LEGACY CODE
 # Ecommerce Application
 Tech stack:
 -TypeScript
