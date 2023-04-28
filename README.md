@@ -1,4 +1,4 @@
-# CAREFULL, LEGACY CODE FULL OF AWFUL PATTERNS
+# BE CAREFUL, LEGACY CODE
 # Ecommerce Application
 Tech stack:
 -TypeScript
