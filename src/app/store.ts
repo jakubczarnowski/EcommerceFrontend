@@ -9,15 +9,15 @@ import orderSlice from "../reducers/orderSlice";
 // import searchSlice from "../reducers/searchSlice";
 
 export const store = configureStore({
-	reducer: {
-		products: productsReducer,
-		categories: categoriesReducer,
-		auth: authSlice,
-		message: messageSlice,
-		cart: cartSlice,
-		address: addressSlice,
-		order: orderSlice,
-	},
+    reducer: {
+        products: productsReducer,
+        categories: categoriesReducer,
+        auth: authSlice,
+        message: messageSlice,
+        cart: cartSlice,
+        address: addressSlice,
+        order: orderSlice,
+    },
 });
 
 export type AppDispatch = typeof store.dispatch;

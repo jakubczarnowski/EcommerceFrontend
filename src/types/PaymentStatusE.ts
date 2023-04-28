@@ -1,6 +1,6 @@
 enum PaymentStatusE {
-	PROCESSING,
-	FINISHED,
-	DECLINED,
+    PROCESSING,
+    FINISHED,
+    DECLINED,
 }
 export default PaymentStatusE;

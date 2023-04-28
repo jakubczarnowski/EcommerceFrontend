@@ -1,4 +1,4 @@
 export default interface AddToCartI {
-	productId: number;
-	quantity: number;
+    productId: number;
+    quantity: number;
 }

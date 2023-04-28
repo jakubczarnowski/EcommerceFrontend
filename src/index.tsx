@@ -6,8 +6,7 @@ import reportWebVitals from "./reportWebVitals";
 import theme from "./theme";
 import { ThemeProvider } from "@mui/material/styles";
 import App from "./pages/App";
-import { BrowserRouter, HashRouter } from "react-router-dom";
-import { useAppDispatch } from "./app/hooks";
+import { HashRouter } from "react-router-dom";
 import { fetchCategories } from "./reducers/categorySlice";
 
 const container = document.getElementById("root")!;
@@ -16,15 +15,15 @@ const root = createRoot(container);
 store.dispatch(fetchCategories());
 
 root.render(
-	<React.StrictMode>
-		<HashRouter>
-			<ThemeProvider theme={theme}>
-				<Provider store={store}>
-					<App />
-				</Provider>
-			</ThemeProvider>
-		</HashRouter>
-	</React.StrictMode>
+    <React.StrictMode>
+        <HashRouter>
+            <ThemeProvider theme={theme}>
+                <Provider store={store}>
+                    <App />
+                </Provider>
+            </ThemeProvider>
+        </HashRouter>
+    </React.StrictMode>
 );
 
 // If you want to start measuring performance in your app, pass a function

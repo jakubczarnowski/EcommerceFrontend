@@ -2,26 +2,26 @@ import { createSlice } from "@reduxjs/toolkit";
 import { RootState } from "../app/store";
 
 interface MessageState {
-	message: string;
-	error: boolean;
+    message: string;
+    error: boolean;
 }
 
 const initialState: MessageState = {
-	message: "",
-	error: false,
+    message: "",
+    error: false,
 };
 
 const messageSlice = createSlice({
-	name: "message",
-	initialState,
-	reducers: {
-		setMessage: (state, action) => {
-			return { message: action.payload.message, error: action.payload.error };
-		},
-		clearMessage: () => {
-			return { message: "", error: false };
-		},
-	},
+    name: "message",
+    initialState,
+    reducers: {
+        setMessage: (state, action) => {
+            return { message: action.payload.message, error: action.payload.error };
+        },
+        clearMessage: () => {
+            return { message: "", error: false };
+        },
+    },
 });
 
 export default messageSlice.reducer;

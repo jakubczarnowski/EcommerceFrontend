@@ -6,18 +6,18 @@ import IncomeView from "../components/admin/IncomeView";
 type Props = {};
 
 const AdminPage = (props: Props) => {
-	const [page, setPage] = useState(<IncomeView />);
-	const handlePageChange = (page: JSX.Element) => {
-		setPage(page);
-	};
-	return (
-		<Box sx={{ display: "flex" }}>
-			<AdminList pageChangeCallback={handlePageChange} />
-			<Box component="main" sx={{ flexGrow: 1, p: 3 }}>
-				{page}
-			</Box>
-		</Box>
-	);
+    const [page, setPage] = useState(<IncomeView />);
+    const handlePageChange = (page: JSX.Element) => {
+        setPage(page);
+    };
+    return (
+        <Box sx={{ display: "flex" }}>
+            <AdminList pageChangeCallback={handlePageChange} />
+            <Box component="main" sx={{ flexGrow: 1, p: 3 }}>
+                {page}
+            </Box>
+        </Box>
+    );
 };
 
 export default AdminPage;
