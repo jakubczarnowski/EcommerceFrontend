@@ -8,9 +8,7 @@ import { selectCategories, selectCategoryById } from "../../reducers/categorySli
 // import { selectSearch, updateSearch, updateSelectedCategory } from "../../reducers/searchSlice";
 import CategoryI from "../../types/CategoryI";
 
-type Props = {};
-
-const SearchField = (props: Props) => {
+const SearchField = () => {
     const navigate = useNavigate();
     const dispatch = useAppDispatch();
 

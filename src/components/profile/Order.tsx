@@ -10,9 +10,7 @@ import { selectOrders } from "../../reducers/orderSlice";
 import { BASE_IMAGE_URL } from "../../utils/BaseImageUrl";
 import OrderList from "../checkout/OrderList";
 
-type Props = {};
-
-const Order = (props: Props) => {
+const Order = () => {
     const { id } = useParams();
     const navigate = useNavigate();
     const order = useAppSelector(selectOrders).find((val) => val.id === Number.parseInt(id || ""));

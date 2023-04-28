@@ -10,9 +10,7 @@ import { IDLE } from "../utils/states";
 import Profile from "../components/profile/Profile";
 import Order from "../components/profile/Order";
 
-type Props = {};
-
-const ProfilePage = (props: Props) => {
+const ProfilePage = () => {
     const orders = useAppSelector(selectOrders);
     const dispatch = useAppDispatch();
     const ordersStatus = useAppSelector(selectOrdersStatus);

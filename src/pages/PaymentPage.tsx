@@ -7,12 +7,11 @@ import axiosInstance from "../app/axiosInstance";
 import { useAppDispatch } from "../app/hooks";
 import CheckoutForm from "../components/checkout/CheckoutForm";
 
-type Props = {};
 const stripePromise = loadStripe(
     "pk_test_51LdCHZBKEPMX5hknwI5Qw9m0NPkGmMSNcmn8fVSmyPsbOuxPH41Z4KZHJcS4KNcQRg8syjv3NQzRDlA5RTI8Qg2a00sckIHYAK"
 );
 
-const PaymentPage = (props: Props) => {
+const PaymentPage = () => {
     const navigate = useNavigate();
     const dispatch = useAppDispatch();
 

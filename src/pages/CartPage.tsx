@@ -7,9 +7,7 @@ import CartPageItem from "../components/cart/CartPageItem";
 import { selectCart } from "../reducers/cartSlice";
 import { CalculateTotalCost } from "../utils/CalculateTotalCost";
 
-type Props = {};
-
-const CartPage = (props: Props) => {
+const CartPage = () => {
     const cart = useAppSelector(selectCart);
     const navigate = useNavigate();
     const dispatch = useAppDispatch();

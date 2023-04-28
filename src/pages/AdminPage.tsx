@@ -3,9 +3,7 @@ import { useState } from "react";
 import AdminList from "../components/admin/AdminList";
 import IncomeView from "../components/admin/IncomeView";
 
-type Props = {};
-
-const AdminPage = (props: Props) => {
+const AdminPage = () => {
     const [page, setPage] = useState(<IncomeView />);
     const handlePageChange = (page: JSX.Element) => {
         setPage(page);

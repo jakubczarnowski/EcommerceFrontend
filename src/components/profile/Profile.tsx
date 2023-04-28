@@ -3,9 +3,7 @@ import { Paper, Typography } from "@mui/material";
 import { Box } from "@mui/system";
 import React from "react";
 
-type Props = {};
-
-const Profile = (props: Props) => {
+const Profile = () => {
     return (
         <Box>
             <Paper

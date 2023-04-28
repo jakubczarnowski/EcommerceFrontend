@@ -22,7 +22,7 @@ function App() {
         isAdmin = user?.roles.includes("ROLE_ADMIN");
     }
     return (
-        <Box>
+        <Box minHeight={"100vh"}>
             <Navbar isAdmin={isAdmin} />
             <Routes>
                 <Route path="/" element={<HomePage />}></Route>

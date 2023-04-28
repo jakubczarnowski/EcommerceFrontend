@@ -1,8 +1,6 @@
 import React from "react";
 
-type Props = {};
-
-const IncomeView = (props: Props) => {
+const IncomeView = () => {
     return <div>IncomeView</div>;
 };
 

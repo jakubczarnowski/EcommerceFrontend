@@ -6,9 +6,7 @@ import CategoryCreateI from "../../types/CategoryCreateI";
 import CategoryI from "../../types/CategoryI";
 import ParseCategories from "../../utils/ParseCategories";
 
-type Props = {};
-
-const AddCategory = (props: Props) => {
+const AddCategory = () => {
     const dispatch = useAppDispatch();
     const [categoryId, setCategoryId] = useState(1);
     const initialCategoryState: CategoryCreateI = {

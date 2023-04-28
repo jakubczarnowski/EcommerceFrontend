@@ -23,8 +23,8 @@ import ProductSort from "../types/SortE";
 import { LOADING, FULLFILLED, FAILED } from "../utils/states";
 // import { selectSearch } from "../reducers/searchSlice";
 
-type Props = {};
-const CategoryText = (props: { children: string | ReactNode; categoryId: number }) => {
+type Props = { children: string | ReactNode; categoryId: number };
+const CategoryText = (props: Props) => {
     const [searchParams] = useSearchParams();
     const search = searchParams.get("value") || "";
     const params = new URLSearchParams();
@@ -36,7 +36,7 @@ const CategoryText = (props: { children: string | ReactNode; categoryId: number 
         </Link>
     );
 };
-const SearchPage = (props: Props) => {
+const SearchPage = () => {
     const dispatch = useAppDispatch();
     const [searchParams] = useSearchParams();
     const search = searchParams.get("value") || "";

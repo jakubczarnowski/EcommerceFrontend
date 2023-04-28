@@ -17,9 +17,7 @@ import ProductCreateI from "../../types/ProductCreateI";
 import { BASE_IMAGE_URL } from "../../utils/BaseImageUrl";
 import ParseCategories from "../../utils/ParseCategories";
 
-type Props = {};
-
-const AddProduct = (props: Props) => {
+const AddProduct = () => {
     const initialProductState: ProductCreateI = {
         name: "",
         imagesUrl: [],

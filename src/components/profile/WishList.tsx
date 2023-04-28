@@ -7,9 +7,7 @@ import ProductParamsI from "../../types/ProductParamI";
 import { IDLE, LOADING, FULLFILLED, FAILED } from "../../utils/states";
 import Product from "../Products/Product";
 
-type Props = {};
-
-const WishList = (props: Props) => {
+const WishList = () => {
     const dispatch = useAppDispatch();
     const products = useAppSelector(selectFavoriteProducts);
     const productStatus = useAppSelector(selectStatus);

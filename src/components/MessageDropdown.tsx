@@ -4,9 +4,8 @@ import React, { useEffect, useState } from "react";
 
 import { useAppDispatch, useAppSelector } from "../app/hooks";
 import { clearMessage, selectMessage } from "../reducers/messageSlice";
-type Props = {};
 
-const MessageDropdown = (props: Props) => {
+const MessageDropdown = () => {
     const [open, setOpen] = useState(false);
     const dispatch = useAppDispatch();
     const { message, error } = useAppSelector(selectMessage);

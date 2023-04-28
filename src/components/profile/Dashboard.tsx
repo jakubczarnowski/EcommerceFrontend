@@ -8,9 +8,7 @@ import { selectAddress } from "../../reducers/addressSlice";
 import { selectOrders } from "../../reducers/orderSlice";
 import { selectFavoriteProducts } from "../../reducers/productsSlice";
 
-type Props = {};
-
-const Dashboard = (props: Props) => {
+const Dashboard = () => {
     const [selectedPage, setSelectedPage] = useState("");
     const handleClick = (name: string) => {
         setSelectedPage(name);
